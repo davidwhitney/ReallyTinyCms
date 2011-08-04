@@ -5,11 +5,11 @@ namespace ReallyTinyCms
 {
     public static class HtmlHelperExtensionsForReallyTinyCms
     {
-        public static Func<ICmsContentRepository> LoadContentRepository { get; set; }
+        public static ContentSourceRegistration ContentRegistration { get; set; }
         
-        public static ContentRepositoryUsageSugar Cms(this HtmlHelper helper)
+        public static ReallyTinyCmsUiSugar Cms(this HtmlHelper helper)
         {
-            return new ContentRepositoryUsageSugar(LoadContentRepository());
+            return new ReallyTinyCmsUiSugar(ContentRegistration);
         }
     }
 }

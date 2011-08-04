@@ -2,13 +2,13 @@ using System.Web.Mvc;
 
 namespace ReallyTinyCms
 {
-    public class ContentRepositoryUsageSugar
+    public class ReallyTinyCmsUiSugar
     {
         private readonly ICmsContentRepository _repository;
 
-        public ContentRepositoryUsageSugar(ICmsContentRepository repository)
+        public ReallyTinyCmsUiSugar(ContentSourceRegistration contentSourceRegistration)
         {
-            _repository = repository;
+            _repository = contentSourceRegistration.FunctionToRetrieveCurrentRepository();
         }
 
         public MvcHtmlString ContentFor(string contentItemName)

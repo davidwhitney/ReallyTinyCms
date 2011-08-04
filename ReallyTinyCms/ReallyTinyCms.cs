@@ -2,11 +2,14 @@
 
 namespace ReallyTinyCms
 {
-    public class ReallyTinyCms
+    public static class ReallyTinyCms
     {
-        public static void RegisterContentRepository(Func<ICmsContentRepository> contentRepository)
+        private static ContentSourceRegistration _contentRegistration;
+
+        public static void RegisterContentRepository(Func<ICmsContentRepository> contentRepository, int? refreshInterval = null)
         {
-            HtmlHelperExtensionsForReallyTinyCms.LoadContentRepository = contentRepository;
+            _contentRegistration = new ContentSourceRegistration(contentRepository) {DesiredRefreshIntervalInSeconds = refreshInterval};
+            HtmlHelperExtensionsForReallyTinyCms.ContentRegistration = _contentRegistration;
         }
     }
 }

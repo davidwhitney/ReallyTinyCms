@@ -42,8 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CmsContentItem.cs" />
+    <Compile Include="ContentSourceRegistration.cs" />
     <Compile Include="StaticDictionaryCmsContentRepository.cs" />
-    <Compile Include="ContentRepositoryUsageSugar.cs" />
+    <Compile Include="ReallyTinyCmsUiSugar.cs" />
     <Compile Include="HtmlHelperExtensionsForReallyTinyCms.cs" />
     <Compile Include="ICmsContentRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
