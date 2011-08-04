@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReallyTinyCms", "ReallyTinyCms\ReallyTinyCms.csproj", "{C2ED3D4D-99B9-4B54-832E-39AF830C78EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReallyTinyCms.Tests", "ReallyTinyCms.Tests\ReallyTinyCms.Tests.csproj", "{6B7B81EB-2D18-4FD7-A784-6E2E1A2B66A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReallyTinyCms.ExampleWebsite", "ReallyTinyCms.ExampleWebsite\ReallyTinyCms.ExampleWebsite.csproj", "{5C8E5004-67B3-45DB-9478-D5FD05E7CEC4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C2ED3D4D-99B9-4B54-832E-39AF830C78EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2ED3D4D-99B9-4B54-832E-39AF830C78EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2ED3D4D-99B9-4B54-832E-39AF830C78EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2ED3D4D-99B9-4B54-832E-39AF830C78EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B7B81EB-2D18-4FD7-A784-6E2E1A2B66A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B7B81EB-2D18-4FD7-A784-6E2E1A2B66A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B7B81EB-2D18-4FD7-A784-6E2E1A2B66A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B7B81EB-2D18-4FD7-A784-6E2E1A2B66A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C8E5004-67B3-45DB-9478-D5FD05E7CEC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C8E5004-67B3-45DB-9478-D5FD05E7CEC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C8E5004-67B3-45DB-9478-D5FD05E7CEC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C8E5004-67B3-45DB-9478-D5FD05E7CEC4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

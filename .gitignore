@@ -1,0 +1,18 @@
+# VS Bits
+obj
+bin
+*.suo
+
+# ReSharper
+_ReSharper.*
+*.user
+
+# Datastore
+StarBastardMmo.Website/App_Data/*.MDF
+StarBastardMmo.Website/App_Data/*.ldf
+StarBastardMmo.Website/App_Data/_FileCache/*
+StarBastardMmo.Database/Raven.Server.log*
+StarBastardMmo.Database/Data/*
+
+
+StarBastardMmo.Website/Bin/*
