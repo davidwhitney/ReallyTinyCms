@@ -42,5 +42,18 @@ namespace ReallyTinyCms
 
             _storage.Remove(existing);
         }
+
+        public CmsContentItem RetrieveOrCreate(string contentItemName, string contentValue = "")
+        {
+            var contentItem = Retrieve(contentItemName);
+
+            if (contentItem == null)
+            {
+                contentItem = new CmsContentItem(contentItemName) {Content = contentValue};
+                SaveOrUpdate(contentItem);
+            }
+
+            return contentItem;
+        }
     }
 }

@@ -6,6 +6,7 @@ namespace ReallyTinyCms
     {
         IList<CmsContentItem> RetrieveAll();
         CmsContentItem Retrieve(string contentItemName);
+        CmsContentItem RetrieveOrCreate(string contentItemName, string contentValue = "");
         void SaveOrUpdate(CmsContentItem item);
         void Delete(string contentItemName);
     }

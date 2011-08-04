@@ -13,5 +13,9 @@
 
     <p>
         <%= Html.Cms().ContentFor("HomePageTop") %>
+        <%= Html.Cms().ContentFor("HomePageTop2", 
+            ()=>@"aha<br/><br/><br/>
+
+                    <b>This is default bold text</b>") %>
     </p>
 </asp:Content>

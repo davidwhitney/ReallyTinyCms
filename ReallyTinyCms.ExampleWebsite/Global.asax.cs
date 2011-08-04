@@ -29,7 +29,7 @@ namespace ReallyTinyCms.ExampleWebsite
             var contentItems = new List<CmsContentItem> {new CmsContentItem("HomePageTop") {Content = "<b>Woo!</b>"}};
             var cmsContentRepository = new StaticDictionaryCmsContentRepository(contentItems);
 
-            ReallyTinyCms.RegisterContentRepository(() => cmsContentRepository, 600);
+            ReallyTinyCms.Configure(() => cmsContentRepository, 600);
         }
     }
 }

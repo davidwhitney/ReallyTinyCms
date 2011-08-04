@@ -1,4 +1,4 @@
-using System.Web.Mvc;
+using System;
 
 namespace ReallyTinyCms
 {
@@ -11,23 +11,17 @@ namespace ReallyTinyCms
             _repository = contentSourceRegistration.FunctionToRetrieveCurrentRepository();
         }
 
-        public MvcHtmlString ContentFor(string contentItemName)
+        public string ContentFor(string contentItemName)
         {
-            var contentItem = RetrieveOrCreateEmpty(contentItemName);
-            return MvcHtmlString.Create(contentItem.Content);
+            var contentItem = _repository.RetrieveOrCreate(contentItemName);
+            return contentItem.Content;
         }
 
-        private CmsContentItem RetrieveOrCreateEmpty(string contentItemName)
+        public string ContentFor(string contentItemName, Func<string> action)
         {
-            var contentItem = _repository.Retrieve(contentItemName);
-
-            if (contentItem == null)
-            {
-                contentItem = new CmsContentItem(contentItemName);
-                _repository.SaveOrUpdate(contentItem);
-            }
-
-            return contentItem;
+            var stringValue = action();
+            var contentItem = _repository.RetrieveOrCreate(contentItemName, stringValue ?? string.Empty);
+            return contentItem.Content;
         }
     }
 }
