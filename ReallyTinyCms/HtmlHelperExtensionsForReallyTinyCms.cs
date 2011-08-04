@@ -1,19 +1,15 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 
 namespace ReallyTinyCms
 {
     public static class HtmlHelperExtensionsForReallyTinyCms
     {
-        private static ICmsContentRepository _contentRepository;
-
-        public static void RegisterContentRepository(ICmsContentRepository contentRepository)
-        {
-            _contentRepository = contentRepository;
-        }
-
+        public static Func<ICmsContentRepository> LoadContentRepository { get; set; }
+        
         public static ContentRepositoryUsageSugar Cms(this HtmlHelper helper)
         {
-            return new ContentRepositoryUsageSugar(_contentRepository);
+            return new ContentRepositoryUsageSugar(LoadContentRepository());
         }
     }
 }

@@ -1,10 +1,12 @@
-﻿namespace ReallyTinyCms
+﻿using System;
+
+namespace ReallyTinyCms
 {
     public class ReallyTinyCms
     {
-        public static void RegisterContentRepository(ICmsContentRepository contentRepository)
+        public static void RegisterContentRepository(Func<ICmsContentRepository> contentRepository)
         {
-            HtmlHelperExtensionsForReallyTinyCms.RegisterContentRepository(contentRepository);
+            HtmlHelperExtensionsForReallyTinyCms.LoadContentRepository = contentRepository;
         }
     }
 }

@@ -12,6 +12,6 @@
     </p>
 
     <p>
-        <%= Html.Cms().ContentFor("HomePageTop") %>    
+        <%= Html.Cms().ContentFor("HomePageTop") %>
     </p>
 </asp:Content>
