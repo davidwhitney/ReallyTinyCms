@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage" %>
+<%@ Import Namespace="ReallyTinyCms" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     Home Page
@@ -8,5 +9,9 @@
     <h2><%: ViewData["Message"] %></h2>
     <p>
         To learn more about ASP.NET MVC visit <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
+    </p>
+
+    <p>
+        <%= Html.Cms().ContentFor("HomePageTop") %>    
     </p>
 </asp:Content>

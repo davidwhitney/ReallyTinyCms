@@ -1,16 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace ReallyTinyCms
 {
     public static class HtmlHelperExtensionsForReallyTinyCms
     {
-        public static CmsContentRepository Cms(this HtmlHelper helper)
+        private static ICmsContentRepository _contentRepository;
+
+        public static void RegisterContentRepository(ICmsContentRepository contentRepository)
         {
-            return new CmsContentRepository();
-        } 
+            _contentRepository = contentRepository;
+        }
+
+        public static ContentRepositoryUsageSugar Cms(this HtmlHelper helper)
+        {
+            return new ContentRepositoryUsageSugar(_contentRepository);
+        }
     }
 }

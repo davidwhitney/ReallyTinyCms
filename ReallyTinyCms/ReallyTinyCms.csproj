@@ -41,9 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CmsContentRepository.cs" />
+    <Compile Include="CmsContentItem.cs" />
+    <Compile Include="StaticDictionaryCmsContentRepository.cs" />
+    <Compile Include="ContentRepositoryUsageSugar.cs" />
     <Compile Include="HtmlHelperExtensionsForReallyTinyCms.cs" />
+    <Compile Include="ICmsContentRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReallyTinyCms.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

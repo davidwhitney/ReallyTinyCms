@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -27,8 +24,11 @@ namespace ReallyTinyCms.ExampleWebsite
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-
             RegisterRoutes(RouteTable.Routes);
+
+            var contentItems = new List<CmsContentItem> {new CmsContentItem("HomePageTop") {Content = "<b>Woo!</b>"}};
+            var cmsContentRepository = new StaticDictionaryCmsContentRepository(contentItems);
+            ReallyTinyCms.RegisterContentRepository(cmsContentRepository);
         }
     }
 }
