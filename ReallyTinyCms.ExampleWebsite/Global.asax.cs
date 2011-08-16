@@ -39,7 +39,7 @@ namespace ReallyTinyCms.ExampleWebsite
                 .WhenCacheRefreshes(() => Debug.WriteLine("Just performed a cache refresh"))
                 .WhenContentIsRequested((contentItemName, defaultValue) => Debug.WriteLine("Just performed a lookup for " + contentItemName))
                 .EditModeShouldBeEnabledWhen(requestContext => requestContext.HttpContext.Request.QueryString.ToString().Contains("editmode")) /* You'd want to check user auth here */
-                .WithFilters(new NoOpFilter(), new NoOpFilter(), new NoOpFilter());
+                .WithFilters(new NoOpFilter(), new NoOpFilter());
         }
     }
 }
