@@ -43,7 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigurationBuilder.cs" />
+    <Compile Include="Core\ContentPipline\ContentPipelineFilterBase.cs" />
     <Compile Include="Core\ContentPipline\IContentPipelineFilter.cs" />
+    <Compile Include="Core\ContentPipline\NoopFilter.cs" />
     <Compile Include="Core\Model\CmsContentItem.cs" />
     <Compile Include="Core\ContentController.cs" />
     <Compile Include="Core\ContentSourceRegistration.cs" />
