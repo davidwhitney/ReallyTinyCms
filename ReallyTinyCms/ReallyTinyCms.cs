@@ -1,4 +1,7 @@
 ﻿using System;
+using ReallyTinyCms.Core;
+using ReallyTinyCms.Core.Storage;
+using ReallyTinyCms.Mvc;
 
 namespace ReallyTinyCms
 {
@@ -9,7 +12,7 @@ namespace ReallyTinyCms
         public static void Configure(Func<ICmsContentRepository> contentRepository, int? refreshInterval = null)
         {
             _contentRegistration = new ContentSourceRegistration(contentRepository) {DesiredRefreshIntervalInSeconds = refreshInterval};
-            HtmlHelperExtensionsForReallyTinyCms.ContentRegistration = _contentRegistration;
+            HtmlHelperExtensionsForReallyTinyCms.CmsController = new CmsController(_contentRegistration);
         }
     }
 }

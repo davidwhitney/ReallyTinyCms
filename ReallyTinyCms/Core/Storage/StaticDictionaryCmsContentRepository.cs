@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using ReallyTinyCms.Core.Model;
 
-namespace ReallyTinyCms
+namespace ReallyTinyCms.Core.Storage
 {
     public class StaticDictionaryCmsContentRepository : ICmsContentRepository
     {

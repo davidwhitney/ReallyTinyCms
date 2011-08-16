@@ -1,4 +1,4 @@
-namespace ReallyTinyCms
+namespace ReallyTinyCms.Core.Model
 {
     public class CmsContentItem
     {

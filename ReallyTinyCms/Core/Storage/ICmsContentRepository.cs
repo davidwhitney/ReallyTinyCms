@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using ReallyTinyCms.Core.Model;
 
-namespace ReallyTinyCms
+namespace ReallyTinyCms.Core.Storage
 {
     public interface ICmsContentRepository
     {

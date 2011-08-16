@@ -1,6 +1,7 @@
 using System;
+using ReallyTinyCms.Core.Storage;
 
-namespace ReallyTinyCms
+namespace ReallyTinyCms.Core
 {
     public class ContentSourceRegistration
     {
