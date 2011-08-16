@@ -5,14 +5,21 @@ using ReallyTinyCms.Mvc;
 
 namespace ReallyTinyCms
 {
+    /// <summary>
+    /// Registration "wizard" for ReallyTinyCms
+    /// </summary>
     public static class ReallyTinyCms
     {
-        private static ContentSourceRegistration _contentRegistration;
+        private static ContentController _contentController;
 
-        public static void Configure(Func<ICmsContentRepository> contentRepository, int? refreshInterval = null)
+        public static ConfigurationBuilder Configure(Func<ICmsContentRepository> contentRepository, int? refreshInterval = null)
         {
-            _contentRegistration = new ContentSourceRegistration(contentRepository) {DesiredRefreshIntervalInSeconds = refreshInterval};
-            HtmlHelperExtensionsForReallyTinyCms.CmsController = new CmsController(_contentRegistration);
+            var contentRegistration = new ContentSourceRegistration(contentRepository) {DesiredRefreshIntervalInSeconds = refreshInterval};
+            _contentController = new ContentController(contentRegistration);
+
+            HtmlHelperExtensionsForReallyTinyCms.ContentController = _contentController;
+
+            return new ConfigurationBuilder(_contentController);
         }
     }
 }

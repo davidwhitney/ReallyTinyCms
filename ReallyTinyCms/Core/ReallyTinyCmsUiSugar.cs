@@ -4,21 +4,21 @@ namespace ReallyTinyCms.Core
 {
     public class ReallyTinyCmsUiSugar
     {
-        private readonly CmsController _cmsController;
+        private readonly ContentController _contentController;
 
-        public ReallyTinyCmsUiSugar(CmsController cmsController)
+        internal ReallyTinyCmsUiSugar(ContentController contentController)
         {
-            _cmsController = cmsController;
+            _contentController = contentController;
         }
 
         public string ContentFor(string contentItemName)
         {
-            return _cmsController.ContentFor(contentItemName);
+            return _contentController.ContentFor(contentItemName);
         }
 
         public string ContentFor(string contentItemName, Func<string> action)
         {
-            return _cmsController.ContentFor(contentItemName, action);
+            return _contentController.ContentFor(contentItemName, action);
         }
     }
 }

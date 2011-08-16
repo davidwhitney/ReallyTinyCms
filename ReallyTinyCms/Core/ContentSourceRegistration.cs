@@ -3,7 +3,7 @@ using ReallyTinyCms.Core.Storage;
 
 namespace ReallyTinyCms.Core
 {
-    public class ContentSourceRegistration
+    internal class ContentSourceRegistration
     {
         public Func<ICmsContentRepository> FunctionToRetrieveCurrentRepository { get; set; }
         public int? DesiredRefreshIntervalInSeconds { get; set; }

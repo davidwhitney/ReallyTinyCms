@@ -42,8 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigurationBuilder.cs" />
     <Compile Include="Core\Model\CmsContentItem.cs" />
-    <Compile Include="Core\CmsController.cs" />
+    <Compile Include="Core\ContentController.cs" />
     <Compile Include="Core\ContentSourceRegistration.cs" />
     <Compile Include="Core\Storage\StaticDictionaryCmsContentRepository.cs" />
     <Compile Include="Core\ReallyTinyCmsUiSugar.cs" />

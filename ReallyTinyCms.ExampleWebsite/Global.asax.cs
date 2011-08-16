@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Web.Mvc;
 using System.Web.Routing;
-using ReallyTinyCms.Core;
 using ReallyTinyCms.Core.Model;
 using ReallyTinyCms.Core.Storage;
 
@@ -32,7 +32,11 @@ namespace ReallyTinyCms.ExampleWebsite
             var contentItems = new List<CmsContentItem> {new CmsContentItem("HomePageTop") {Content = "<b>Woo!</b>"}};
             var cmsContentRepository = new StaticDictionaryCmsContentRepository(contentItems);
 
-            ReallyTinyCms.Configure(() => cmsContentRepository, 600);
+            ReallyTinyCms
+                .Configure(() => cmsContentRepository, 600)
+                .OnCacheRefresh(() => Debug.WriteLine("ReallyTinyCms just performed a cache refresh"))
+                .OnContentFor((contentItemName, defaultValue) => Debug.WriteLine("ReallyTinyCms just performed a lookup for " + contentItemName));
+
         }
     }
 }
