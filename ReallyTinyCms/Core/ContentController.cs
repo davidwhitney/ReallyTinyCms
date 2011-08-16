@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using ReallyTinyCms.Core.Model;
 
 namespace ReallyTinyCms.Core
@@ -41,9 +42,21 @@ namespace ReallyTinyCms.Core
             if (contentItem == null)
             {
                 contentItem = new CmsContentItem(contentItemName) { Content = contentValue };
+                contentItem = ApplyOnSaveFilters(contentItem);
                 repo.SaveOrUpdate(contentItem);
             }
 
+            return ApplyOnRetrieveFilters(contentItem);
+        }
+
+        private CmsContentItem ApplyOnRetrieveFilters(CmsContentItem contentItem)
+        {
+            return ContentRegistration.ContentPipelineFilters.Aggregate(contentItem, (current, filter) => filter.OnRetrieve(current));
+        }
+
+        private CmsContentItem ApplyOnSaveFilters(CmsContentItem contentItem)
+        {
+            contentItem = ContentRegistration.ContentPipelineFilters.Aggregate(contentItem, (current, filter) => filter.OnSave(current));
             return contentItem;
         }
     }
