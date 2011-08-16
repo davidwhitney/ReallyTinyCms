@@ -19,4 +19,11 @@
 
                     <b>This is default bold text</b>") %>
     </p>
+
+    <p>
+    <%if(Html.Cms().EditEnabledForCurrentRequest()){%>
+        Whoop editing enabled for this request.
+    <% } %>
+    
+    </p>
 </asp:Content>

@@ -3,7 +3,7 @@ using ReallyTinyCms.Core.Model;
 
 namespace ReallyTinyCms.Core
 {
-    internal class ContentController
+    public class ContentController
     {
         public ContentSourceRegistration ContentRegistration { get; set; }
         

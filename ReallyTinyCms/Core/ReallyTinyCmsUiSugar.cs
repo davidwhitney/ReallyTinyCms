@@ -1,4 +1,5 @@
 using System;
+using System.Web;
 
 namespace ReallyTinyCms.Core
 {
@@ -19,6 +20,12 @@ namespace ReallyTinyCms.Core
         public string ContentFor(string contentItemName, Func<string> action)
         {
             return _contentController.ContentFor(contentItemName, action);
+        }
+
+        public bool EditEnabledForCurrentRequest()
+        {
+            return _contentController.ContentRegistration.RequesterIsAllowedToEditContent(
+                HttpContext.Current.Request.RequestContext);
         }
     }
 }

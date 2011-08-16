@@ -35,9 +35,9 @@ namespace ReallyTinyCms.ExampleWebsite
             ReallyTinyCms
                 .ConfigureWithContentSource(() => cmsContentRepository)
                 .AndRefreshInterval(1.Minute())
-                .WhenCacheRefreshes(() => Debug.WriteLine("ReallyTinyCms just performed a cache refresh"))
-                .WhenContentIsRequested((contentItemName, defaultValue) => Debug.WriteLine("ReallyTinyCms just performed a lookup for " + contentItemName));
-
+                .WhenCacheRefreshes(() => Debug.WriteLine("Just performed a cache refresh"))
+                .WhenContentIsRequested((contentItemName, defaultValue) => Debug.WriteLine("Just performed a lookup for " + contentItemName))
+                .EditModeShouldBeEnabledWhen(requestContext => requestContext.HttpContext.Request.QueryString.ToString().Contains("editmode")); /* You'd want to check user auth here */
         }
     }
 }

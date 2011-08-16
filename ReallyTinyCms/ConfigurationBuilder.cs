@@ -1,32 +1,39 @@
 using System;
+using System.Web.Routing;
 using ReallyTinyCms.Core;
 
 namespace ReallyTinyCms
 {
     public class ConfigurationBuilder
     {
-        private readonly ContentController _contentController;
+        public ContentController ContentController { get; private set; }
 
         internal ConfigurationBuilder(ContentController contentController)
         {
-            _contentController = contentController;
+            ContentController = contentController;
         }
 
         public ConfigurationBuilder WhenCacheRefreshes(Action action)
         {
-            _contentController.CacheRefreshCallback = action;
+            ContentController.CacheRefreshCallback = action;
             return this;
         } 
 
         public ConfigurationBuilder WhenContentIsRequested(Action<string, string> action)
         {
-            _contentController.ContentForCallback = action;
+            ContentController.ContentForCallback = action;
             return this;
         }  
 
         public ConfigurationBuilder AndRefreshInterval(int refreshInterval)
         {
-            _contentController.ContentRegistration.DesiredRefreshInterval = refreshInterval;
+            ContentController.ContentRegistration.DesiredRefreshInterval = refreshInterval;
+            return this;
+        }   
+
+        public ConfigurationBuilder EditModeShouldBeEnabledWhen(Func<RequestContext, bool> funcWhichVerifiesRequesterIsAllowedToEdit)
+        {
+            ContentController.ContentRegistration.RequesterIsAllowedToEditContent = funcWhichVerifiesRequesterIsAllowedToEdit;
             return this;
         }  
     }
