@@ -24,9 +24,9 @@ namespace ReallyTinyCms
             return this;
         }  
 
-        public ConfigurationBuilder AndRefreshIntervalInSeconds(int refreshInterval)
+        public ConfigurationBuilder AndRefreshInterval(int refreshInterval)
         {
-            _contentController.ContentRegistration.DesiredRefreshIntervalInSeconds = refreshInterval;
+            _contentController.ContentRegistration.DesiredRefreshInterval = refreshInterval;
             return this;
         }  
     }

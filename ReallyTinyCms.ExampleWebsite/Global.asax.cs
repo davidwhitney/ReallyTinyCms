@@ -34,7 +34,7 @@ namespace ReallyTinyCms.ExampleWebsite
 
             ReallyTinyCms
                 .ConfigureWithContentSource(() => cmsContentRepository)
-                .AndRefreshIntervalInSeconds(600)
+                .AndRefreshInterval(1.Minute())
                 .WhenCacheRefreshes(() => Debug.WriteLine("ReallyTinyCms just performed a cache refresh"))
                 .WhenContentIsRequested((contentItemName, defaultValue) => Debug.WriteLine("ReallyTinyCms just performed a lookup for " + contentItemName));
 

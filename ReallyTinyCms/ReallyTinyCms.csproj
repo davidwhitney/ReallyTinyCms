@@ -48,6 +48,7 @@
     <Compile Include="Core\ContentSourceRegistration.cs" />
     <Compile Include="Core\Storage\StaticDictionaryCmsContentRepository.cs" />
     <Compile Include="Core\ReallyTinyCmsUiSugar.cs" />
+    <Compile Include="ExtensionsToHelpDuringConfiguration.cs" />
     <Compile Include="Mvc\HtmlHelperExtensionsForReallyTinyCms.cs" />
     <Compile Include="Core\Storage\ICmsContentRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
