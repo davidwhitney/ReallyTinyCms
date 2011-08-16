@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Web.Mvc;
 using System.Web.Routing;
+using ReallyTinyCms.Core.ContentPipline;
 using ReallyTinyCms.Core.Model;
 using ReallyTinyCms.Core.Storage;
 
@@ -37,7 +38,8 @@ namespace ReallyTinyCms.ExampleWebsite
                 .AndRefreshInterval(1.Minute())
                 .WhenCacheRefreshes(() => Debug.WriteLine("Just performed a cache refresh"))
                 .WhenContentIsRequested((contentItemName, defaultValue) => Debug.WriteLine("Just performed a lookup for " + contentItemName))
-                .EditModeShouldBeEnabledWhen(requestContext => requestContext.HttpContext.Request.QueryString.ToString().Contains("editmode")); /* You'd want to check user auth here */
+                .EditModeShouldBeEnabledWhen(requestContext => requestContext.HttpContext.Request.QueryString.ToString().Contains("editmode")) /* You'd want to check user auth here */
+                .WithFilters(new IContentPipelineFilter[]{});
         }
     }
 }

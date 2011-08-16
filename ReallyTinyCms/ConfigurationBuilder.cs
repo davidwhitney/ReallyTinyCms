@@ -1,6 +1,7 @@
 using System;
 using System.Web.Routing;
 using ReallyTinyCms.Core;
+using ReallyTinyCms.Core.ContentPipline;
 
 namespace ReallyTinyCms
 {
@@ -34,6 +35,16 @@ namespace ReallyTinyCms
         public ConfigurationBuilder EditModeShouldBeEnabledWhen(Func<RequestContext, bool> funcWhichVerifiesRequesterIsAllowedToEdit)
         {
             ContentController.ContentRegistration.RequesterIsAllowedToEditContent = funcWhichVerifiesRequesterIsAllowedToEdit;
+            return this;
+        }    
+
+        public ConfigurationBuilder WithFilters(params IContentPipelineFilter[] filters)
+        {
+            foreach (var contentPipelineFilter in filters)
+            {
+                ContentController.ContentRegistration.ContentPipelineFilters.Add(contentPipelineFilter);
+            }
+
             return this;
         }  
     }
