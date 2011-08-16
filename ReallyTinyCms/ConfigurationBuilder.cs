@@ -12,15 +12,21 @@ namespace ReallyTinyCms
             _contentController = contentController;
         }
 
-        public ConfigurationBuilder OnCacheRefresh(Action action)
+        public ConfigurationBuilder WhenCacheRefreshes(Action action)
         {
             _contentController.CacheRefreshCallback = action;
             return this;
         } 
 
-        public ConfigurationBuilder OnContentFor(Action<string, string> action)
+        public ConfigurationBuilder WhenContentIsRequested(Action<string, string> action)
         {
             _contentController.ContentForCallback = action;
+            return this;
+        }  
+
+        public ConfigurationBuilder AndRefreshIntervalInSeconds(int refreshInterval)
+        {
+            _contentController.ContentRegistration.DesiredRefreshIntervalInSeconds = refreshInterval;
             return this;
         }  
     }

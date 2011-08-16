@@ -33,9 +33,10 @@ namespace ReallyTinyCms.ExampleWebsite
             var cmsContentRepository = new StaticDictionaryCmsContentRepository(contentItems);
 
             ReallyTinyCms
-                .Configure(() => cmsContentRepository, 600)
-                .OnCacheRefresh(() => Debug.WriteLine("ReallyTinyCms just performed a cache refresh"))
-                .OnContentFor((contentItemName, defaultValue) => Debug.WriteLine("ReallyTinyCms just performed a lookup for " + contentItemName));
+                .ConfigureWithContentSource(() => cmsContentRepository)
+                .AndRefreshIntervalInSeconds(600)
+                .WhenCacheRefreshes(() => Debug.WriteLine("ReallyTinyCms just performed a cache refresh"))
+                .WhenContentIsRequested((contentItemName, defaultValue) => Debug.WriteLine("ReallyTinyCms just performed a lookup for " + contentItemName));
 
         }
     }
