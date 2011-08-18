@@ -9,5 +9,8 @@ namespace ReallyTinyCms.Core.Storage
         CmsContentItem Retrieve(string contentItemName);
         void SaveOrUpdate(CmsContentItem item);
         void Delete(string contentItemName);
+
+    	bool StorageExists();
+    	void CreateStorage();
     }
 }

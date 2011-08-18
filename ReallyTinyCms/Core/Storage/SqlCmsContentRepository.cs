@@ -16,7 +16,7 @@ namespace ReallyTinyCms.Core.Storage
 		{
 			_connectionString = connectionString;
 
-			VerifySchema();
+			VerifyAndCreateStorageIfRequired();
 		}
 
 		public IList<CmsContentItem> RetrieveAll()
@@ -67,28 +67,35 @@ namespace ReallyTinyCms.Core.Storage
 			});
 		}
 
-		private void VerifySchema()
+		private void VerifyAndCreateStorageIfRequired()
 		{
-			ConnectAnd(c =>
+			if(!StorageExists())
+			{
+				CreateStorage();
+			}
+		}
+
+		public bool StorageExists()
+		{
+			return ConnectAnd(c =>
 			{
 				var rows = c.Query(@"SELECT name FROM sys.tables WHERE (name = @TableName)",
 			           				new {TableName = "CmsContentItem"});
-				if (rows.Count() == 0)
-				{
-					CreateSchema(c);
-				}
-
+				return rows.Count() != 0;
 			});
 		}
 
-		private static void CreateSchema(IDbConnection connection)
+		public void CreateStorage()
 		{
-			connection.Execute(
-				@"CREATE TABLE [dbo].[CmsContentItem](
+			ConnectAnd(c =>
+			{
+			    c.Execute(
+			        @"CREATE TABLE [dbo].[CmsContentItem](
 					[Id] [int] IDENTITY(1,1) NOT NULL,
 					[Name] [nvarchar] (max) NULL,
 					[Content] [nvarchar] (max) NULL,	
-				 ) ON [PRIMARY]");
+					) ON [PRIMARY]");
+			});
 		}
 
 		public void ConnectAnd(Action<SqlConnection> action)

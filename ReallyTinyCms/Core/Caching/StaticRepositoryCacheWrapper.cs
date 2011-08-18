@@ -48,6 +48,16 @@ namespace ReallyTinyCms.Core.Caching
 			UpdateCache();
 		}
 
+		public bool StorageExists()
+		{
+			return _realContentRepository().StorageExists();
+		}
+
+		public void CreateStorage()
+		{
+			_realContentRepository().CreateStorage();
+		}
+
 		private void UpdateCacheIfRequired()
 		{
 			if (_refreshCachOn > DateTime.Now)
