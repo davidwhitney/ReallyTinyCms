@@ -36,7 +36,8 @@ namespace ReallyTinyCms.ExampleWebsite
         		.ConfigureWithContentSource(() => cmsContentRepository, 1.Minute())
         		.WhenCacheRefreshes(() => Debug.WriteLine("Just performed a cache refresh"))
         		.WhenContentIsRequested((contentItemName, defaultValue) => Debug.WriteLine("Just performed a lookup for " + contentItemName))
-        		.EditModeShouldBeEnabledWhen(requestContext => requestContext.HttpContext.Request.QueryString.ToString().Contains("editmode"));
+        		.EditModeShouldBeEnabledWhen(requestContext => requestContext.HttpContext.Request.QueryString.ToString().Contains("editmode"))
+				.WithFilters(new NoOpFilter());
         }
     }
 }
