@@ -30,8 +30,10 @@ namespace ReallyTinyCms.ExampleWebsite
             AreaRegistration.RegisterAllAreas();
             RegisterRoutes(RouteTable.Routes);
 
-            var contentItems = new List<CmsContentItem> {new CmsContentItem("HomePageTop") {Content = "<b>Woo!</b>"}};
-            var cmsContentRepository = new StaticDictionaryCmsContentRepository(contentItems);
+            //var contentItems = new List<CmsContentItem> {new CmsContentItem("HomePageTop") {Content = "<b>Woo!</b>"}};
+            //var cmsContentRepository = new StaticDictionaryCmsContentRepository(contentItems);
+
+			var cmsContentRepository = new SqlCmsContentRepository(@"Data Source=.\SQLEXPRESS;AttachDbFilename=D:\github-davidwhitney\ReallyTinyCms\ReallyTinyCms.ExampleWebsite\App_Data\MyData.mdf;Integrated Security=True;User Instance=True");
 
             ReallyTinyCms
                 .ConfigureWithContentSource(() => cmsContentRepository)

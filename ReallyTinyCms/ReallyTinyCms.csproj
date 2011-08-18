@@ -49,13 +49,18 @@
     <Compile Include="Core\Model\CmsContentItem.cs" />
     <Compile Include="Core\ContentController.cs" />
     <Compile Include="Core\ContentSourceRegistration.cs" />
+    <Compile Include="Core\Storage\SqlCmsContentRepository.cs" />
     <Compile Include="Core\Storage\StaticDictionaryCmsContentRepository.cs" />
     <Compile Include="Core\ReallyTinyCmsUiSugar.cs" />
+    <Compile Include="Core\Storage\Dapper\SqlMapper.cs" />
     <Compile Include="ExtensionsToHelpDuringConfiguration.cs" />
     <Compile Include="Mvc\HtmlHelperExtensionsForReallyTinyCms.cs" />
     <Compile Include="Core\Storage\ICmsContentRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReallyTinyCms.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
