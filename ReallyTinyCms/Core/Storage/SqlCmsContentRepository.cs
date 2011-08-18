@@ -61,7 +61,10 @@ namespace ReallyTinyCms.Core.Storage
 
 		public void Delete(string contentItemName)
 		{
-			throw new NotImplementedException();
+			ConnectAnd(c =>
+			{
+			    c.Execute(@"delete from CmsContentItem where Name = @Name", new {Name = contentItemName});
+			});
 		}
 
 		private void VerifySchema()
