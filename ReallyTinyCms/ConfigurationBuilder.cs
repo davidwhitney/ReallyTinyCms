@@ -24,12 +24,6 @@ namespace ReallyTinyCms
         {
             ContentController.ContentForCallback = action;
             return this;
-        }  
-
-        public ConfigurationBuilder AndRefreshInterval(int refreshInterval)
-        {
-            ContentController.ContentRegistration.DesiredRefreshInterval = refreshInterval;
-            return this;
         }   
 
         public ConfigurationBuilder EditModeShouldBeEnabledWhen(Func<RequestContext, bool> funcWhichVerifiesRequesterIsAllowedToEdit)

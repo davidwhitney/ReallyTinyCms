@@ -10,15 +10,18 @@ namespace ReallyTinyCms.Core.Caching
 	{
 		private readonly Func<ICmsContentRepository> _realContentRepository;
 
-		private DateTime _lastUpdated;
+		private DateTime _refreshCachOn;
 		private readonly int _cacheDurationInMilliseconds;
-		private readonly Dictionary<string, CmsContentItem> _cachedItems; 
+		private readonly Dictionary<string, CmsContentItem> _cachedItems;
+
+		public Action CacheRefreshCallback { get; set; }
 
 		public StaticRepositoryCacheWrapper(Func<ICmsContentRepository> realContentRepository, int cacheDurationInMilliseconds)
 		{
 			_realContentRepository = realContentRepository;
 			_cacheDurationInMilliseconds = cacheDurationInMilliseconds;
 			_cachedItems = new Dictionary<string, CmsContentItem>();
+			CacheRefreshCallback = () => { };
 		}
 
 		public IList<CmsContentItem> RetrieveAll()
@@ -47,7 +50,7 @@ namespace ReallyTinyCms.Core.Caching
 
 		private void UpdateCacheIfRequired()
 		{
-			if (_lastUpdated.AddMilliseconds(_cacheDurationInMilliseconds) > DateTime.Now)
+			if (_refreshCachOn > DateTime.Now)
 			{
 				return; // Cache still within expiry
 			}
@@ -57,7 +60,6 @@ namespace ReallyTinyCms.Core.Caching
 
 		private void UpdateCache()
 		{
-
 			lock(_cachedItems)
 			{
 				var items = _realContentRepository().RetrieveAll();
@@ -68,7 +70,8 @@ namespace ReallyTinyCms.Core.Caching
 					_cachedItems.Add(item.Name, item);
 				}
 
-				_lastUpdated = DateTime.Now;
+				_refreshCachOn = DateTime.Now.AddMilliseconds(_cacheDurationInMilliseconds);
+				CacheRefreshCallback();
 			}
 		}
 	}

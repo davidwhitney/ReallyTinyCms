@@ -14,7 +14,7 @@ namespace ReallyTinyCms
 
         public static ConfigurationBuilder ConfigureWithContentSource(Func<ICmsContentRepository> contentRepository, int? refreshInterval = null)
         {
-            var contentRegistration = new ContentSourceRegistration(contentRepository) {DesiredRefreshInterval = refreshInterval};
+            var contentRegistration = new ContentSourceRegistration(contentRepository, refreshInterval);
             _contentController = new ContentController(contentRegistration);
 
             HtmlHelperExtensionsForReallyTinyCms.ContentController = _contentController;

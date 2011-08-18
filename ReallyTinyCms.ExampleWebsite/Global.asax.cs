@@ -32,13 +32,11 @@ namespace ReallyTinyCms.ExampleWebsite
 
 			var cmsContentRepository = new SqlCmsContentRepository(@"Data Source=.\SQLEXPRESS;AttachDbFilename=D:\github-davidwhitney\ReallyTinyCms\ReallyTinyCms.ExampleWebsite\App_Data\MyData.mdf;Integrated Security=True;User Instance=True");
 
-            ReallyTinyCms
-                .ConfigureWithContentSource(() => cmsContentRepository)
-                .AndRefreshInterval(1.Minute())
-                .WhenCacheRefreshes(() => Debug.WriteLine("Just performed a cache refresh"))
-                .WhenContentIsRequested((contentItemName, defaultValue) => Debug.WriteLine("Just performed a lookup for " + contentItemName))
-                .EditModeShouldBeEnabledWhen(requestContext => requestContext.HttpContext.Request.QueryString.ToString().Contains("editmode")) /* You'd want to check user auth here */
-                .WithFilters(new NoOpFilter(), new NoOpFilter());
+        	ReallyTinyCms
+        		.ConfigureWithContentSource(() => cmsContentRepository, 1.Minute())
+        		.WhenCacheRefreshes(() => Debug.WriteLine("Just performed a cache refresh"))
+        		.WhenContentIsRequested((contentItemName, defaultValue) => Debug.WriteLine("Just performed a lookup for " + contentItemName))
+        		.EditModeShouldBeEnabledWhen(requestContext => requestContext.HttpContext.Request.QueryString.ToString().Contains("editmode"));
         }
     }
 }

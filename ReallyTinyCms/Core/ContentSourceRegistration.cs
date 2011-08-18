@@ -14,20 +14,13 @@ namespace ReallyTinyCms.Core
         public bool AutoRefreshContent { get { return DesiredRefreshInterval.HasValue; } }
         public Func<RequestContext, bool> RequesterIsAllowedToEditContent { get; set; }
         public IList<IContentPipelineFilter> ContentPipelineFilters { get; set; }
-
-		private StaticRepositoryCacheWrapper _contentCache;
-
-        public ContentSourceRegistration(Func<ICmsContentRepository> contentRepository)
+		
+        public ContentSourceRegistration(Func<ICmsContentRepository> contentRepository, int? refreshInterval)
         {
-			AdornRepositoryWithCache(contentRepository);
+        	DesiredRefreshInterval = refreshInterval;
+			FunctionToRetrieveCurrentRepository = contentRepository;
             RequesterIsAllowedToEditContent = x => false;
             ContentPipelineFilters = new List<IContentPipelineFilter>();
         }
-
-    	private void AdornRepositoryWithCache(Func<ICmsContentRepository> contentRepository)
-    	{
-    		_contentCache = new StaticRepositoryCacheWrapper(contentRepository, DesiredRefreshInterval.GetValueOrDefault(5.Minutes()));
-    		FunctionToRetrieveCurrentRepository = () => _contentCache;
-    	}
     }
 }

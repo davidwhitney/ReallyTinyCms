@@ -1,23 +1,35 @@
 using System;
 using System.Linq;
+using ReallyTinyCms.Core.Caching;
 using ReallyTinyCms.Core.Model;
+using ReallyTinyCms.Core.Storage;
 
 namespace ReallyTinyCms.Core
 {
     public class ContentController
     {
-        public ContentSourceRegistration ContentRegistration { get; set; }
-        
-        public Action CacheRefreshCallback { get; set; }
-        public Action<string, string> ContentForCallback { get; set; }
-        
-        internal ContentController(ContentSourceRegistration contentRegistration)
+    	public ContentSourceRegistration ContentRegistration { get; set; }
+    	public Action<string, string> ContentForCallback { get; set; }
+
+		private StaticRepositoryCacheWrapper _contentCache;
+		private Func<ICmsContentRepository> _repoProxy;
+    	public Action CacheRefreshCallback { set { _contentCache.CacheRefreshCallback = value; } }
+
+    	internal ContentController(ContentSourceRegistration contentRegistration)
         {
             ContentRegistration = contentRegistration;
-            
+			BuildContentCache(contentRegistration.FunctionToRetrieveCurrentRepository);
             CacheRefreshCallback = () => { };
             ContentForCallback = (contentItemName, defaultValue) => { };
         }
+
+		private void BuildContentCache(Func<ICmsContentRepository> contentRepository)
+		{
+			_contentCache = new StaticRepositoryCacheWrapper(contentRepository,
+			                                                 ContentRegistration.DesiredRefreshInterval.GetValueOrDefault(
+			                                                 	5.Minutes()));
+			_repoProxy = () => _contentCache;
+		}
 
         public string ContentFor(string contentItemName)
         {
@@ -36,7 +48,7 @@ namespace ReallyTinyCms.Core
 
         private CmsContentItem RetrieveOrCreate(string contentItemName, string contentValue = "")
         {
-            var repo = ContentRegistration.FunctionToRetrieveCurrentRepository();
+			var repo = _repoProxy();
             var contentItem = repo.Retrieve(contentItemName);
 
             if (contentItem == null)
