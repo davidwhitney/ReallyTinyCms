@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Configuration;
 using System.Diagnostics;
 using System.Web.Mvc;
 using System.Web.Routing;
 using ReallyTinyCms.Core.ContentPipline;
-using ReallyTinyCms.Core.Model;
 using ReallyTinyCms.Core.Storage;
 
 namespace ReallyTinyCms.ExampleWebsite
@@ -30,7 +29,8 @@ namespace ReallyTinyCms.ExampleWebsite
             AreaRegistration.RegisterAllAreas();
             RegisterRoutes(RouteTable.Routes);
 
-			var cmsContentRepository = new SqlCmsContentRepository(@"Data Source=.\SQLEXPRESS;AttachDbFilename=D:\github-davidwhitney\ReallyTinyCms\ReallyTinyCms.ExampleWebsite\App_Data\MyData.mdf;Integrated Security=True;User Instance=True");
+        	var connectionString = ConfigurationManager.ConnectionStrings["CmsDatabase"].ConnectionString;
+			var cmsContentRepository = new SqlCmsContentRepository(connectionString);
 
         	ReallyTinyCms
         		.ConfigureWithContentSource(() => cmsContentRepository, 1.Minute())
