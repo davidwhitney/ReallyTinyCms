@@ -23,7 +23,7 @@ namespace ReallyTinyCms.Core.Storage
 		{
 			return ConnectAnd(c =>
 			                  	{
-			                  		var items = c.Query<CmsContentItem>("select");
+			                  		var items = c.Query<CmsContentItem>("select * from CmsContentItem");
 			                  		return items.ToList();
 			                  	});
 		}

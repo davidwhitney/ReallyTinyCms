@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigurationBuilder.cs" />
+    <Compile Include="Core\Caching\StaticRepositoryCacheWrapper.cs" />
     <Compile Include="Core\ContentPipline\ContentPipelineFilterBase.cs" />
     <Compile Include="Core\ContentPipline\IContentPipelineFilter.cs" />
     <Compile Include="Core\ContentPipline\NoopFilter.cs" />
@@ -50,7 +51,6 @@
     <Compile Include="Core\ContentController.cs" />
     <Compile Include="Core\ContentSourceRegistration.cs" />
     <Compile Include="Core\Storage\SqlCmsContentRepository.cs" />
-    <Compile Include="Core\Storage\StaticDictionaryCmsContentRepository.cs" />
     <Compile Include="Core\ReallyTinyCmsUiSugar.cs" />
     <Compile Include="Core\Storage\Dapper\SqlMapper.cs" />
     <Compile Include="ExtensionsToHelpDuringConfiguration.cs" />
