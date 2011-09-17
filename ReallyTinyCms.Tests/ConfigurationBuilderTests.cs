@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Web.Routing;
 using NUnit.Framework;
 using ReallyTinyCms.Core;
 
@@ -66,6 +67,24 @@ namespace ReallyTinyCms.Tests
             _builder.WhenContentIsRequested(callbackAction);
 
             Assert.That(_contentService.ContentForCallback, Is.EqualTo(callbackAction));
+        }
+
+        [Test]
+        public void EditModeShouldBeEnabledWhen_FunctionIsNull_DefaultActionConfigured()
+        {
+            _builder.EditModeShouldBeEnabledWhen(null);
+
+            Assert.That(_contentSourceRegistration.RequesterIsAllowedToEditContent, Is.Not.Null);
+        }
+
+        [Test]
+        public void EditModeShouldBeEnabledWhen_ProvidedWithFunctionToUseInEvaluation_EvaluationFunctionRegistered()
+        {
+            Func<RequestContext, bool> evaluationFunction = x => true;
+
+            _builder.EditModeShouldBeEnabledWhen(evaluationFunction);
+
+            Assert.That(_contentSourceRegistration.RequesterIsAllowedToEditContent, Is.Not.Null);
         }
     }
 }

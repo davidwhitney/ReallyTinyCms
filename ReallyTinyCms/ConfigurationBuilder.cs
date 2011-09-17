@@ -43,6 +43,11 @@ namespace ReallyTinyCms
 
         public ConfigurationBuilder EditModeShouldBeEnabledWhen(Func<RequestContext, bool> funcWhichVerifiesRequesterIsAllowedToEdit)
         {
+            if (funcWhichVerifiesRequesterIsAllowedToEdit == null)
+            {
+                return this; // Keep defaults.
+            }
+
             ContentService.ContentRegistration.RequesterIsAllowedToEditContent = funcWhichVerifiesRequesterIsAllowedToEdit;
             return this;
         }    
