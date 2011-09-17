@@ -33,7 +33,7 @@ namespace ReallyTinyCms.Tests
         }
 
         [Test]
-        public void WhenCacheRefreshes_ActionIsNull_DefaultFunctionConfigured()
+        public void WhenCacheRefreshes_ActionIsNull_DefaultActionConfigured()
         {
             _builder.WhenCacheRefreshes(null);
 
@@ -48,6 +48,24 @@ namespace ReallyTinyCms.Tests
             _builder.WhenCacheRefreshes(callbackAction);
 
             Assert.That(_contentService.CacheRefreshCallback, Is.EqualTo(callbackAction));
+        }
+
+        [Test]
+        public void WhenContentIsRequested_ActionIsNull_DefaultActionConfigured()
+        {
+            _builder.WhenContentIsRequested(null);
+
+            Assert.That(_contentService.ContentForCallback, Is.Not.Null);
+        }
+
+        [Test]
+        public void WhenContentIsRequested_ProvidedWithCallbackAction_CallbackActionConfigured()
+        {
+            Action<string,string> callbackAction = (x, y) => Debug.WriteLine("Something");
+
+            _builder.WhenContentIsRequested(callbackAction);
+
+            Assert.That(_contentService.ContentForCallback, Is.EqualTo(callbackAction));
         }
     }
 }

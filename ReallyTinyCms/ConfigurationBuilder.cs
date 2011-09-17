@@ -32,6 +32,11 @@ namespace ReallyTinyCms
 
         public ConfigurationBuilder WhenContentIsRequested(Action<string, string> action)
         {
+            if (action == null)
+            {
+                action = (x,y) => { };
+            }
+
             ContentService.ContentForCallback = action;
             return this;
         }   
