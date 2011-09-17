@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NUnit.Framework;
 
 namespace ReallyTinyCms.Tests
 {
-    class CmsContentRepositoryTests
+    [TestFixture]
+    public class ConfigurationBuilderTests
     {
     }
 }
