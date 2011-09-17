@@ -13,9 +13,13 @@ namespace ReallyTinyCms.Core
 
 		private StaticRepositoryCacheWrapper _contentCache;
 		private Func<ICmsContentRepository> _repoProxy;
-    	public Action CacheRefreshCallback { set { _contentCache.CacheRefreshCallback = value; } }
+    	public Action CacheRefreshCallback
+    	{
+    	    set { _contentCache.CacheRefreshCallback = value; }
+            get { return _contentCache.CacheRefreshCallback; }
+    	}
 
-    	internal ContentService(ContentSourceRegistration contentRegistration)
+        public ContentService(ContentSourceRegistration contentRegistration)
         {
             ContentRegistration = contentRegistration;
 			BuildContentCache(contentRegistration.FunctionToRetrieveCurrentRepository);

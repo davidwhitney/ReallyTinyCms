@@ -9,13 +9,23 @@ namespace ReallyTinyCms
     {
         public ContentService ContentService { get; private set; }
 
-        internal ConfigurationBuilder(ContentService contentService)
+        public ConfigurationBuilder(ContentService contentService)
         {
+            if (contentService == null)
+            {
+                throw new ArgumentNullException("contentService", "Configuration builder requires a content service to configure.");
+            }
+                
             ContentService = contentService;
         }
 
         public ConfigurationBuilder WhenCacheRefreshes(Action action)
         {
+            if (action == null)
+            {
+                action = () => { };
+            }
+
             ContentService.CacheRefreshCallback = action;
             return this;
         } 
