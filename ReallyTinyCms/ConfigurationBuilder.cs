@@ -54,6 +54,11 @@ namespace ReallyTinyCms
 
         public ConfigurationBuilder WithFilters(params IContentPipelineFilter[] filters)
         {
+            if (filters == null)
+            {
+                filters = new IContentPipelineFilter[] {};
+            }
+
             foreach (var contentPipelineFilter in filters)
             {
                 ContentService.ContentRegistration.ContentPipelineFilters.Add(contentPipelineFilter);

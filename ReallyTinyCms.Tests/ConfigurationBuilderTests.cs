@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Web.Routing;
 using NUnit.Framework;
 using ReallyTinyCms.Core;
+using ReallyTinyCms.Core.ContentPipline;
 
 namespace ReallyTinyCms.Tests
 {
@@ -85,6 +83,52 @@ namespace ReallyTinyCms.Tests
             _builder.EditModeShouldBeEnabledWhen(evaluationFunction);
 
             Assert.That(_contentSourceRegistration.RequesterIsAllowedToEditContent, Is.Not.Null);
+        }
+
+        [Test]
+        public void WithFilters_ProvidedWithNullParamsCollection_AddsNoFilters()
+        {
+            _builder.WithFilters(null);
+
+            Assert.That(_contentSourceRegistration.ContentPipelineFilters, Is.Empty);
+        }
+
+        [Test]
+        public void WithFilters_ProvidedWithAFilter_AddsFilterToRegistration()
+        {
+            var filter = new NoOpFilter();
+
+            _builder.WithFilters(filter);
+
+            Assert.That(_contentSourceRegistration.ContentPipelineFilters, Contains.Item(filter));
+        }
+
+        [Test]
+        public void WithFilters_ProvidedWithMultipleFilters_AddsFiltersToRegistration()
+        {
+            var filter1 = new NoOpFilter();
+            var filter2 = new NoOpFilter();
+            var filter3 = new NoOpFilter();
+
+            _builder.WithFilters(filter1, filter2, filter3);
+
+            Assert.That(_contentSourceRegistration.ContentPipelineFilters, Contains.Item(filter1));
+            Assert.That(_contentSourceRegistration.ContentPipelineFilters, Contains.Item(filter2));
+            Assert.That(_contentSourceRegistration.ContentPipelineFilters, Contains.Item(filter3));
+        }
+
+        [Test]
+        public void WithFilters_ProvidedWithMultipleFilters_AddsFiltersInOrder()
+        {
+            var filter1 = new NoOpFilter();
+            var filter2 = new NoOpFilter();
+            var filter3 = new NoOpFilter();
+
+            _builder.WithFilters(filter1, filter2, filter3);
+
+            Assert.That(_contentSourceRegistration.ContentPipelineFilters[0], Is.EqualTo(filter1));
+            Assert.That(_contentSourceRegistration.ContentPipelineFilters[1], Is.EqualTo(filter2));
+            Assert.That(_contentSourceRegistration.ContentPipelineFilters[2], Is.EqualTo(filter3));
         }
     }
 }
