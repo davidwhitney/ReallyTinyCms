@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using ReallyTinyCms.Core;
 
 namespace ReallyTinyCms.Mvc
@@ -9,6 +10,11 @@ namespace ReallyTinyCms.Mvc
 
         public static ReallyTinyCmsUiSugar Cms(this HtmlHelper helper)
         {
+            if (ContentController == null)
+            {
+                throw new InvalidOperationException("The ContentController is null, cannot continue. Registration failure.");
+            }
+
             return new ReallyTinyCmsUiSugar(ContentController);
         }
     }

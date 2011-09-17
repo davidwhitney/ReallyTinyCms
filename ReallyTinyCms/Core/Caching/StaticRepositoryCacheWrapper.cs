@@ -33,7 +33,8 @@ namespace ReallyTinyCms.Core.Caching
 		public CmsContentItem Retrieve(string contentItemName)
 		{
 			UpdateCacheIfRequired();
-			return _cachedItems[contentItemName];
+
+            return _cachedItems.ContainsKey(contentItemName) ? _cachedItems[contentItemName] : null;
 		}
 
 		public void SaveOrUpdate(CmsContentItem item)
