@@ -14,6 +14,11 @@ namespace ReallyTinyCms
 
         public static ConfigurationBuilder ConfigureWithContentSource(Func<ICmsContentRepository> contentRepository, int? refreshInterval = null)
         {
+            if (contentRepository == null)
+            {
+                throw new ArgumentNullException("contentRepository", "CMS requires a content source to function");
+            }
+
             var contentRegistration = new ContentSourceRegistration(contentRepository, refreshInterval);
             _contentService = new ContentService(contentRegistration);
 
