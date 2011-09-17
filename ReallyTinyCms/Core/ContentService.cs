@@ -6,7 +6,7 @@ using ReallyTinyCms.Core.Storage;
 
 namespace ReallyTinyCms.Core
 {
-    public class ContentController
+    public class ContentService
     {
     	public ContentSourceRegistration ContentRegistration { get; set; }
     	public Action<string, string> ContentForCallback { get; set; }
@@ -15,7 +15,7 @@ namespace ReallyTinyCms.Core
 		private Func<ICmsContentRepository> _repoProxy;
     	public Action CacheRefreshCallback { set { _contentCache.CacheRefreshCallback = value; } }
 
-    	internal ContentController(ContentSourceRegistration contentRegistration)
+    	internal ContentService(ContentSourceRegistration contentRegistration)
         {
             ContentRegistration = contentRegistration;
 			BuildContentCache(contentRegistration.FunctionToRetrieveCurrentRepository);

@@ -6,16 +6,16 @@ namespace ReallyTinyCms.Mvc
 {
     public static class HtmlHelperExtensionsForReallyTinyCms
     {
-        internal static ContentController ContentController { get; set; }
+        internal static ContentService ContentService { get; set; }
 
         public static ReallyTinyCmsUiSugar Cms(this HtmlHelper helper)
         {
-            if (ContentController == null)
+            if (ContentService == null)
             {
-                throw new InvalidOperationException("The ContentController is null, cannot continue. Registration failure.");
+                throw new InvalidOperationException("The ContentService is null, cannot continue. Registration failure.");
             }
 
-            return new ReallyTinyCmsUiSugar(ContentController);
+            return new ReallyTinyCmsUiSugar(ContentService);
         }
     }
 }

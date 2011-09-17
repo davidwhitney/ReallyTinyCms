@@ -10,16 +10,16 @@ namespace ReallyTinyCms
     /// </summary>
     public static class ReallyTinyCms
     {
-        private static ContentController _contentController;
+        private static ContentService _contentService;
 
         public static ConfigurationBuilder ConfigureWithContentSource(Func<ICmsContentRepository> contentRepository, int? refreshInterval = null)
         {
             var contentRegistration = new ContentSourceRegistration(contentRepository, refreshInterval);
-            _contentController = new ContentController(contentRegistration);
+            _contentService = new ContentService(contentRegistration);
 
-            HtmlHelperExtensionsForReallyTinyCms.ContentController = _contentController;
+            HtmlHelperExtensionsForReallyTinyCms.ContentService = _contentService;
 
-            return new ConfigurationBuilder(_contentController);
+            return new ConfigurationBuilder(_contentService);
         }
     }
 }

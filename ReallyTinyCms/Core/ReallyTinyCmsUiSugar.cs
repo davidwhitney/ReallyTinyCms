@@ -5,26 +5,26 @@ namespace ReallyTinyCms.Core
 {
     public class ReallyTinyCmsUiSugar
     {
-        private readonly ContentController _contentController;
+        private readonly ContentService _contentService;
 
-        internal ReallyTinyCmsUiSugar(ContentController contentController)
+        internal ReallyTinyCmsUiSugar(ContentService contentService)
         {
-            _contentController = contentController;
+            _contentService = contentService;
         }
 
         public string ContentFor(string contentItemName)
         {
-            return _contentController.ContentFor(contentItemName);
+            return _contentService.ContentFor(contentItemName);
         }
 
         public string ContentFor(string contentItemName, Func<string> action)
         {
-            return _contentController.ContentFor(contentItemName, action);
+            return _contentService.ContentFor(contentItemName, action);
         }
 
         public bool EditEnabledForCurrentRequest()
         {
-            return _contentController.ContentRegistration.RequesterIsAllowedToEditContent(
+            return _contentService.ContentRegistration.RequesterIsAllowedToEditContent(
                 HttpContext.Current.Request.RequestContext);
         }
     }

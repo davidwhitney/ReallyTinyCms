@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Routing;
-using ReallyTinyCms.Core.Caching;
 using ReallyTinyCms.Core.ContentPipline;
 using ReallyTinyCms.Core.Storage;
 

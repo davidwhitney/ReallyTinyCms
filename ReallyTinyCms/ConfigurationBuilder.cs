@@ -7,28 +7,28 @@ namespace ReallyTinyCms
 {
     public class ConfigurationBuilder
     {
-        public ContentController ContentController { get; private set; }
+        public ContentService ContentService { get; private set; }
 
-        internal ConfigurationBuilder(ContentController contentController)
+        internal ConfigurationBuilder(ContentService contentService)
         {
-            ContentController = contentController;
+            ContentService = contentService;
         }
 
         public ConfigurationBuilder WhenCacheRefreshes(Action action)
         {
-            ContentController.CacheRefreshCallback = action;
+            ContentService.CacheRefreshCallback = action;
             return this;
         } 
 
         public ConfigurationBuilder WhenContentIsRequested(Action<string, string> action)
         {
-            ContentController.ContentForCallback = action;
+            ContentService.ContentForCallback = action;
             return this;
         }   
 
         public ConfigurationBuilder EditModeShouldBeEnabledWhen(Func<RequestContext, bool> funcWhichVerifiesRequesterIsAllowedToEdit)
         {
-            ContentController.ContentRegistration.RequesterIsAllowedToEditContent = funcWhichVerifiesRequesterIsAllowedToEdit;
+            ContentService.ContentRegistration.RequesterIsAllowedToEditContent = funcWhichVerifiesRequesterIsAllowedToEdit;
             return this;
         }    
 
@@ -36,7 +36,7 @@ namespace ReallyTinyCms
         {
             foreach (var contentPipelineFilter in filters)
             {
-                ContentController.ContentRegistration.ContentPipelineFilters.Add(contentPipelineFilter);
+                ContentService.ContentRegistration.ContentPipelineFilters.Add(contentPipelineFilter);
             }
 
             return this;
