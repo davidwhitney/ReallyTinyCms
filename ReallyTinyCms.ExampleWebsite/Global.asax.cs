@@ -20,15 +20,31 @@ namespace ReallyTinyCms.ExampleWebsite
             AreaRegistration.RegisterAllAreas();
             RegisterRoutes(RouteTable.Routes);
 
-        	var connectionString = ConfigurationManager.ConnectionStrings["CmsDatabase"].ConnectionString;
-			var cmsContentRepository = new SqlCmsContentRepository(connectionString);
+        	ConfigureCms();
+        }
 
-        	ReallyTinyCms
-        		.ConfigureWithContentSource(() => cmsContentRepository, 1.Minute())
-        		.WhenCacheRefreshes(() => Debug.WriteLine("Just performed a cache refresh"))
-        		.WhenContentIsRequested((contentItemName, defaultValue) => Debug.WriteLine("Just performed a lookup for " + contentItemName))
-        		.EditModeShouldBeEnabledWhen(requestContext => requestContext.HttpContext.Request.QueryString.ToString().Contains("editmode"))
-				.WithFilters(new NoOpFilter())
+        private static void ConfigureCms()
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["CmsDatabase"].ConnectionString;
+            var cmsContentRepository = new SqlCmsContentRepository(connectionString);
+
+            ReallyTinyCms
+                .ConfigureWithContentSource(() => cmsContentRepository, 1.Minute())
+                .WhenCacheRefreshes(() => Debug.WriteLine("Just performed a cache refresh"))
+                .WhenContentIsRequested((contentItemName, defaultValue) => Debug.WriteLine("Just performed a lookup for " + contentItemName))
+                .EditModeShouldBeEnabledWhen(requestContext => requestContext.HttpContext.Request.QueryString.ToString().Contains("editmode"))
+                .WithFilters(new NoOpFilter())
+                .ConfigureEditRoute(RouteTable.Routes, "cms");
+        }
+
+        protected void MinimalSqlBackedExample()
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["CmsDatabase"].ConnectionString;
+            var cmsContentRepository = new SqlCmsContentRepository(connectionString);
+
+            ReallyTinyCms
+                .ConfigureWithContentSource(() => cmsContentRepository, 1.Minute())
+                .EditModeShouldBeEnabledWhen(requestContext => requestContext.HttpContext.Request.QueryString.ToString().Contains("editmode"))
                 .ConfigureEditRoute(RouteTable.Routes, "cms");
         }
     }
