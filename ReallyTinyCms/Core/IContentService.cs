@@ -8,8 +8,7 @@ namespace ReallyTinyCms.Core
         ContentSourceRegistration ContentRegistration { get; set; }
         Action<string, string> ContentForCallback { get; set; }
         Action CacheRefreshCallback { set; get; }
-        string ContentFor(string contentItemName);
-        string ContentFor(string contentItemName, Func<string> action);
+        string ContentFor(string contentItemName, Func<string> action = null);
         CmsContentItem SaveContentFor(string contentItemName, string contentValue);
         CmsContentItem RetrieveOrCreate(string contentItemName, string contentValue = "");
     }

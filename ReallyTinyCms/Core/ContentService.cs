@@ -42,16 +42,16 @@ namespace ReallyTinyCms.Core
 			_repoProxy = () => _contentCache;
 		}
 
-        public string ContentFor(string contentItemName)
-        {
-            return ContentFor(contentItemName, () => string.Empty);
-        }
-
-        public string ContentFor(string contentItemName, Func<string> action)
+        public string ContentFor(string contentItemName, Func<string> action = null)
         {
             if (string.IsNullOrWhiteSpace(contentItemName))
             {
                 return action != null ? action() : string.Empty;
+            }
+
+            if (action == null)
+            {
+                action = () => string.Empty;
             }
 
             var localisedContentItemName = LocaliseContentItemName(contentItemName);

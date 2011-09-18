@@ -44,7 +44,7 @@ namespace ReallyTinyCms.Tests.Core
         {
             _sugar.ContentFor(_itemName, ()=>"default");
 
-            Assert.That(_contentService.ContentForWasCalledWithDefault, Is.True);
+            Assert.That(_contentService.ContentForWasCalled, Is.True);
             Assert.That(_contentService.LastContentForValue, Is.EqualTo(_itemName));
         }
     }

@@ -11,19 +11,16 @@ namespace ReallyTinyCms.Tests.Fakes
         public Action CacheRefreshCallback { get; set; }
 
         public bool ContentForWasCalled { get; private set; }
-        public bool ContentForWasCalledWithDefault { get; private set; }
         public string LastContentForValue { get; private set; }
-
-        public string ContentFor(string contentItemName)
+        
+        public string ContentFor(string contentItemName, Func<string> action = null)
         {
+            if (action == null)
+            {
+                action = () => string.Empty;
+            }
+
             ContentForWasCalled = true;
-            LastContentForValue = contentItemName;
-            return string.Empty;
-        }
-
-        public string ContentFor(string contentItemName, Func<string> action)
-        {
-            ContentForWasCalledWithDefault = true;
             LastContentForValue = contentItemName;
             return string.Empty;
         }

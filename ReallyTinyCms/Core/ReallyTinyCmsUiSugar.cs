@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Web;
 
 namespace ReallyTinyCms.Core
@@ -17,14 +18,39 @@ namespace ReallyTinyCms.Core
             _contentService = contentService;
         }
 
-        public string ContentFor(string contentItemName)
+        public string ContentFor(string contentItemName, Func<string> action = null, bool useNativeMarkup = false, bool showEditHint = true)
         {
-            return _contentService.ContentFor(contentItemName);
+            if (action == null)
+            {
+                action = () => string.Empty;
+            }
+
+            var content = _contentService.ContentFor(contentItemName, action);
+            
+            if (useNativeMarkup)
+            {
+                return content;
+            }
+
+            return DecorateMarkup(contentItemName, showEditHint, content);
         }
 
-        public string ContentFor(string contentItemName, Func<string> action)
+        private string DecorateMarkup(string contentItemName, bool showEditHint, string content)
         {
-            return _contentService.ContentFor(contentItemName, action);
+            var buffer = new StringBuilder("<div id=\"contentItem_" + contentItemName + "\">");
+            buffer.Append(content);
+            buffer.Append("</div>");
+
+            if (EditEnabledForCurrentRequest())
+            {
+                if (showEditHint)
+                {
+                    buffer.Append("<div id=\"editContentItem_" + contentItemName +
+                                  "\" class=\"contentItemEditLink\">Edit Content</div>");
+                }
+            }
+
+            return buffer.ToString();
         }
 
         public bool EditEnabledForCurrentRequest()
