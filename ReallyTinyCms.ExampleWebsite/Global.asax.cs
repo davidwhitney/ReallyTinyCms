@@ -28,7 +28,8 @@ namespace ReallyTinyCms.ExampleWebsite
         		.WhenCacheRefreshes(() => Debug.WriteLine("Just performed a cache refresh"))
         		.WhenContentIsRequested((contentItemName, defaultValue) => Debug.WriteLine("Just performed a lookup for " + contentItemName))
         		.EditModeShouldBeEnabledWhen(requestContext => requestContext.HttpContext.Request.QueryString.ToString().Contains("editmode"))
-				.WithFilters(new NoOpFilter());
+				.WithFilters(new NoOpFilter())
+                .ConfigureEditRoute(RouteTable.Routes, "cms");
         }
     }
 }

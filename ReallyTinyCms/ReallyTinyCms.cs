@@ -10,7 +10,7 @@ namespace ReallyTinyCms
     /// </summary>
     public static class ReallyTinyCms
     {
-        private static ContentService _contentService;
+        public static ContentService ContentService { get; private set; }
 
         public static ConfigurationBuilder ConfigureWithContentSource(Func<ICmsContentRepository> contentRepository, int? refreshInterval = null)
         {
@@ -20,11 +20,11 @@ namespace ReallyTinyCms
             }
 
             var contentRegistration = new ContentSourceRegistration(contentRepository, refreshInterval);
-            _contentService = new ContentService(contentRegistration);
+            ContentService = new ContentService(contentRegistration);
 
-            HtmlHelperExtensionsForReallyTinyCms.ContentService = _contentService;
+            HtmlHelperExtensionsForReallyTinyCms.ContentService = ContentService;
 
-            return new ConfigurationBuilder(_contentService);
+            return new ConfigurationBuilder(ContentService);
         }
     }
 }

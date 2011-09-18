@@ -1,4 +1,5 @@
 using System;
+using System.Web.Mvc;
 using System.Web.Routing;
 using ReallyTinyCms.Core;
 using ReallyTinyCms.Core.ContentPipline;
@@ -65,6 +66,13 @@ namespace ReallyTinyCms
             }
 
             return this;
-        }  
+        }
+
+        public void ConfigureEditRoute(RouteCollection routes, string prefix)
+        {
+            var route = routes.MapRoute("ReallyTinyCmsAdmin", prefix + "/{action}/{name}", new { controller = "ReallyTinyCms", action = "Index", name = UrlParameter.Optional });
+            routes.Remove(route);
+            routes.Insert(0, route);
+        }
     }
 }
