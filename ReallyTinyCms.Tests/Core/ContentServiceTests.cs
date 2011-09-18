@@ -145,7 +145,7 @@ namespace ReallyTinyCms.Tests.Core
             protected internal bool RetrieveAllCalled { get; private set; }
             protected internal bool RetrieveCalled { get; private set; }
             protected internal bool SaveOrUpdateCalledAndNewItemCreated { get; private set; }
-            protected internal CmsContentItem LastSavedItem { get; set; }
+            protected internal CmsContentItem LastSavedItem { get; private set; }
 
             public IList<CmsContentItem> RetrieveAll()
             {
