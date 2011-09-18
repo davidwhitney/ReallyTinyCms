@@ -109,19 +109,16 @@ namespace ReallyTinyCms.Tests.Core
         [Test]
         public void ContentFor_WhenContentItemDoesntExist_DefaultItemReturned()
         {
-            const string itemName = "item";
-
-            var item = _contentService.ContentFor(itemName);
+            var item = _contentService.ContentFor(ItemName);
 
             Assert.That(item, Is.Not.Null);
         }
         
         private class CmsContentRepositoryFake: Dictionary<string, CmsContentItem>, ICmsContentRepository
         {
-            protected internal bool RetrieveAllCalled { get; set; }
-            protected internal bool RetrieveCalled { get; set; }
-            protected internal bool SaveOrUpdateCalled { get; set; }
-            protected internal bool SaveOrUpdateCalledAndNewItemCreated { get; set; }
+            protected internal bool RetrieveAllCalled { get; private set; }
+            protected internal bool RetrieveCalled { get; private set; }
+            protected internal bool SaveOrUpdateCalledAndNewItemCreated { get; private set; }
 
             public IList<CmsContentItem> RetrieveAll()
             {
@@ -137,8 +134,6 @@ namespace ReallyTinyCms.Tests.Core
 
             public void SaveOrUpdate(CmsContentItem item)
             {
-                SaveOrUpdateCalled = true;
-
                 var cItem = Retrieve(item.Name);
 
                 if(cItem != null)
@@ -154,17 +149,19 @@ namespace ReallyTinyCms.Tests.Core
 
             public void Delete(string contentItemName)
             {
-                throw new NotImplementedException();
+                if(Retrieve(contentItemName) != null)
+                {
+                    Remove(contentItemName);
+                }
             }
 
             public bool StorageExists()
             {
-                throw new NotImplementedException();
+                return true;
             }
 
             public void CreateStorage()
             {
-                throw new NotImplementedException();
             }
         }
     }
