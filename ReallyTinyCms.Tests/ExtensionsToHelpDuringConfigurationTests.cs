@@ -58,5 +58,23 @@ namespace ReallyTinyCms.Tests
 
             Assert.That(ms, Is.EqualTo(expected));
         }
+
+        [Test]
+        public void Millisecond_PassedInteger_ConvertsToMilliseconds()
+        {
+            const int expected = 1;
+            var ms = 1.Millisecond();
+
+            Assert.That(ms, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void Milliseconds_PassedInteger_ConvertsToMilliseconds()
+        {
+            const int expected = 1;
+            var ms = 1.Milliseconds();
+
+            Assert.That(ms, Is.EqualTo(expected));
+        }
     }
 }
