@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace ReallyTinyCms.Core
 {
@@ -45,8 +48,25 @@ namespace ReallyTinyCms.Core
             {
                 if (showEditHint)
                 {
-                    buffer.Append("<div id=\"editContentItem_" + contentItemName +
-                                  "\" class=\"contentItemEditLink\">Edit Content</div>");
+                    var requestContext = HttpContext.Current.Request.RequestContext;
+
+                    var routeValues = new RouteValueDictionary
+                                          {
+                                              {"action", "edit"},
+                                              {"controller", "ReallyTinyCms"},
+                                              {"name", contentItemName}
+                                          };
+                    foreach(var item in HttpContext.Current.Request.QueryString.AllKeys)
+                    {
+                        routeValues.Add(item, HttpContext.Current.Request.QueryString[item]);
+                    }
+
+                    var link = HtmlHelper.GenerateRouteLink(requestContext, RouteTable.Routes, "Edit", "ReallyTinyCmsAdmin",
+                                                 routeValues, new Dictionary<string, object>{{"target", "_blank"}});
+
+                    buffer.Append("<div id=\"editContentItem_" + contentItemName + "\" class=\"contentItemEditLink\">");
+                    buffer.Append(link);
+                    buffer.Append("</div>");
                 }
             }
 

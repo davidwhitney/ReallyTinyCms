@@ -70,9 +70,18 @@ namespace ReallyTinyCms
 
         public void ConfigureEditRoute(RouteCollection routes, string prefix)
         {
-            var route = routes.MapRoute("ReallyTinyCmsAdmin", prefix + "/{action}/{name}", new { controller = "ReallyTinyCms", action = "Index", name = UrlParameter.Optional });
-            routes.Remove(route);
-            routes.Insert(0, route);
+            var routeValueDictionary = new RouteValueDictionary
+                                           {
+                                               {"controller", "ReallyTinyCms"},
+                                               {"action", "Index"},
+                                               {"name", UrlParameter.Optional}
+                                           };
+
+            var route1 = new Route(prefix + "/{action}/{name}", routeValueDictionary, new MvcRouteHandler());
+            var route2 = new Route(prefix + "/{action}/{name}", routeValueDictionary, new MvcRouteHandler());
+
+            routes.Add("ReallyTinyCmsAdmin", route1);
+            routes.Insert(0, route2);
         }
     }
 }
