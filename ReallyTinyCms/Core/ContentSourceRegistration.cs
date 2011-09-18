@@ -10,7 +10,6 @@ namespace ReallyTinyCms.Core
     {
 		public Func<ICmsContentRepository> FunctionToRetrieveCurrentRepository { get; set; }
         public int? DesiredRefreshInterval { get; set; }
-        public bool AutoRefreshContent { get { return DesiredRefreshInterval.HasValue; } }
         public Func<RequestContext, bool> RequesterIsAllowedToEditContent { get; set; }
         public IList<IContentPipelineFilter> ContentPipelineFilters { get; set; }
 		

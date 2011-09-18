@@ -4,6 +4,7 @@ using System.Web.Routing;
 using NUnit.Framework;
 using ReallyTinyCms.Core;
 using ReallyTinyCms.Core.ContentPipline;
+using ReallyTinyCms.Tests.Fakes;
 
 namespace ReallyTinyCms.Tests
 {
@@ -13,11 +14,13 @@ namespace ReallyTinyCms.Tests
         private ContentService _contentService;
         private ConfigurationBuilder _builder;
         private ContentSourceRegistration _contentSourceRegistration;
+        private CmsContentRepositoryFake _contentRepository;
 
         [SetUp]
         public void SetUp()
         {
-            _contentSourceRegistration = new ContentSourceRegistration(null, null);
+            _contentRepository = new CmsContentRepositoryFake();
+            _contentSourceRegistration = new ContentSourceRegistration(() => _contentRepository, null);
             _contentService = new ContentService(_contentSourceRegistration);
             _builder = new ConfigurationBuilder(_contentService);
         }
