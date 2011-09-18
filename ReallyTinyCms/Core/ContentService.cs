@@ -9,11 +9,12 @@ namespace ReallyTinyCms.Core
     public class ContentService : IContentService
     {
     	public ContentSourceRegistration ContentRegistration { get; set; }
-    	public Action<string, string> ContentForCallback { get; set; }
 
 		private StaticRepositoryCacheWrapper _contentCache;
 		private Func<ICmsContentRepository> _repoProxy;
-    	public Action CacheRefreshCallback
+
+        public Action<string, string> ContentForCallback { get; set; }
+        public Action CacheRefreshCallback
     	{
     	    set { _contentCache.CacheRefreshCallback = value; }
             get { return _contentCache.CacheRefreshCallback; }
@@ -34,9 +35,10 @@ namespace ReallyTinyCms.Core
 
 		private void BuildContentCache(Func<ICmsContentRepository> contentRepository)
 		{
-			_contentCache = new StaticRepositoryCacheWrapper(contentRepository,
-			                                                 ContentRegistration.DesiredRefreshInterval.GetValueOrDefault(
-			                                                 	5.Minutes()));
+		    ContentRegistration.DesiredRefreshInterval =
+		        ContentRegistration.DesiredRefreshInterval.GetValueOrDefault(5.Minutes());
+
+            _contentCache = new StaticRepositoryCacheWrapper(contentRepository, ContentRegistration.DesiredRefreshInterval.Value);
 			_repoProxy = () => _contentCache;
 		}
 

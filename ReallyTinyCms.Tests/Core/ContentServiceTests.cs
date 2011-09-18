@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using ReallyTinyCms.Core;
 using ReallyTinyCms.Core.Model;
@@ -13,13 +14,24 @@ namespace ReallyTinyCms.Tests.Core
         private ContentService _contentService;
         private ContentSourceRegistration _contentRegistration;
         private Func<ICmsContentRepository> _contentRepositoryFunction;
+        private CmsContentRepositoryFake _contentRepository;
+        
+        const string ItemName = "item";
+        const string ItemValue = "value";
 
         [SetUp]
         public void SetUp()
         {
-            _contentRepositoryFunction = () => new CmsContentRepositoryFake();
+            _contentRepository = new CmsContentRepositoryFake();
+            _contentRepositoryFunction = () => _contentRepository;
             _contentRegistration = new ContentSourceRegistration(_contentRepositoryFunction, null);
             _contentService = new ContentService(_contentRegistration);
+        }
+
+        [Test]
+        public void Ctor_ContentRegistrationIsNotNull_ConstructsService()
+        {
+            Assert.That(_contentService, Is.Not.Null);
         }
 
         [Test]
@@ -31,21 +43,113 @@ namespace ReallyTinyCms.Tests.Core
             Assert.That(ex.Message, Is.StringMatching("ContentService requires a valid ContentRegistration to function."));
         }
 
-        private class CmsContentRepositoryFake: ICmsContentRepository
+        [Test]
+        public void Ctor_WhenConstructed_DefaultCacheRefreshCallbackIsNotNull()
         {
+            Assert.That(_contentService.CacheRefreshCallback, Is.Not.Null);
+        }
+
+        [Test]
+        public void Ctor_WhenConstructed_DefaultContentForCallbackIsNotNull()
+        {
+            Assert.That(_contentService.ContentForCallback, Is.Not.Null);
+        }
+
+        [Test]
+        public void Ctor_WhenConstructedWithoutSpecificRefreshInterval_ContentRegistrationDefaultRefreshRateSetTo5Minutes()
+        {
+            Assert.That(_contentRegistration.DesiredRefreshInterval, Is.EqualTo(5.Minutes()));
+        }
+
+        [Test]
+        public void ContentFor_WhenCalled_CallsCallbackWithContentInformation()
+        {
+            const string contentAreaName = "something";
+            var callbackCalled = false;
+            _contentService.ContentForCallback = (name, value) => { callbackCalled = true; };
+
+            _contentService.ContentFor(contentAreaName);
+
+            Assert.That(callbackCalled, Is.True);
+        }
+
+        [Test]
+        public void ContentFor_WhenContentItemExists_RetrievesItem()
+        {
+            var contentItem = new CmsContentItem(ItemName) {Content = ItemValue};
+            _contentRepository.Add(ItemName, contentItem);
+
+            var item = _contentService.ContentFor(ItemName);
+
+            Assert.That(item, Is.EqualTo(ItemValue));
+        }
+
+        [Test]
+        public void ContentFor_WhenContentItemExists_RetrievesFromInternalCache()
+        {
+            var contentItem = new CmsContentItem(ItemName) {Content = ItemValue};
+            _contentRepository.Add(ItemName, contentItem);
+
+            _contentService.ContentFor(ItemName);
+
+            Assert.That(_contentRepository.RetrieveAllCalled, Is.True);
+            Assert.That(_contentRepository.RetrieveCalled, Is.False);
+        }
+
+        [Test]
+        public void ContentFor_WhenContentItemDoesntExist_CallsSaveOrUpdateWithNewItem()
+        {
+            const string itemName = "item";
+
+            _contentService.ContentFor(itemName);
+
+            Assert.That(_contentRepository.SaveOrUpdateCalledAndNewItemCreated, Is.True);
+        }
+
+        [Test]
+        public void ContentFor_WhenContentItemDoesntExist_DefaultItemReturned()
+        {
+            const string itemName = "item";
+
+            var item = _contentService.ContentFor(itemName);
+
+            Assert.That(item, Is.Not.Null);
+        }
+        
+        private class CmsContentRepositoryFake: Dictionary<string, CmsContentItem>, ICmsContentRepository
+        {
+            protected internal bool RetrieveAllCalled { get; set; }
+            protected internal bool RetrieveCalled { get; set; }
+            protected internal bool SaveOrUpdateCalled { get; set; }
+            protected internal bool SaveOrUpdateCalledAndNewItemCreated { get; set; }
+
             public IList<CmsContentItem> RetrieveAll()
             {
-                throw new NotImplementedException();
+                RetrieveAllCalled = true;
+                return Values.ToList();
             }
 
             public CmsContentItem Retrieve(string contentItemName)
             {
-                throw new NotImplementedException();
+                RetrieveCalled = true;
+                return ContainsKey(contentItemName) ? this[contentItemName] : null;
             }
 
             public void SaveOrUpdate(CmsContentItem item)
             {
-                throw new NotImplementedException();
+                SaveOrUpdateCalled = true;
+
+                var cItem = Retrieve(item.Name);
+
+                if(cItem != null)
+                {
+                    cItem.Content = item.Content;
+                }
+                else
+                {
+                    SaveOrUpdateCalledAndNewItemCreated = true;
+                    Add(item.Name, item);
+                }
             }
 
             public void Delete(string contentItemName)
