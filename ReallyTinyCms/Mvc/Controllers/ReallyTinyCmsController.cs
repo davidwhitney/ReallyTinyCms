@@ -7,7 +7,7 @@ namespace ReallyTinyCms.Mvc.Controllers
     public class ReallyTinyCmsController : Controller
     {
         private readonly IContentService _contentService;
-        private ReallyTinyCmsUiSugar _uiSugar;
+        private readonly ReallyTinyCmsUiSugar _uiSugar;
 
         public ReallyTinyCmsController()
             : this(ReallyTinyCms.ContentService)
