@@ -16,6 +16,11 @@ namespace ReallyTinyCms.Core
 		
         public ContentSourceRegistration(Func<ICmsContentRepository> contentRepository, int? refreshInterval)
         {
+            if (contentRepository == null)
+            {
+                throw new ArgumentNullException("contentRepository", "Content source registration needs access to a content repository.");
+            }
+
         	DesiredRefreshInterval = refreshInterval;
 			FunctionToRetrieveCurrentRepository = contentRepository;
             RequesterIsAllowedToEditContent = x => false;
