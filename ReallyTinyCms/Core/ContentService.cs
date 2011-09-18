@@ -51,7 +51,7 @@ namespace ReallyTinyCms.Core
         {
             if (string.IsNullOrWhiteSpace(contentItemName))
             {
-                return string.Empty;
+                return action != null ? action() : string.Empty;
             }
 
             var stringValue = action();

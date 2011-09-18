@@ -148,5 +148,14 @@ namespace ReallyTinyCms.Tests.Core
 
             Assert.That(content, Is.Empty);
         }
+
+        [Test]
+        public void ContentFor_ItemNameIsNullEmptyOrWhiteSpaceAndActionSpecified_ReturnsAction()
+        {
+            const string defaultThing = "my junk";
+            var content = _contentService.ContentFor(ItemName, () => defaultThing);
+
+            Assert.That(content, Is.EqualTo(defaultThing));
+        }
     }
 }
