@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage" %>
-<%@ Import Namespace="ReallyTinyCms" %>
 <%@ Import Namespace="ReallyTinyCms.Mvc" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
@@ -14,16 +13,12 @@
 
     <p>
         <%= Html.Cms().ContentFor("HomePageTop") %>
-        <%= Html.Cms().ContentFor("HomePageTop2", 
-            ()=>@"aha<br/><br/><br/>
-
-                    <b>This is default bold text</b>") %>
+        <%= Html.Cms().ContentFor("HomePageTop2", ()=>@"<b>This is default bold text</b>") %>
     </p>
 
     <p>
     <%if(Html.Cms().EditEnabledForCurrentRequest()){%>
         Whoop editing enabled for this request.
-    <% } %>
-    
+    <% } %>    
     </p>
 </asp:Content>
