@@ -18,6 +18,7 @@ namespace ReallyTinyCms.Tests.Core
         
         const string ItemName = "item";
         const string ItemValue = "value";
+        const string DefaultValue = "default";
 
         [SetUp]
         public void SetUp()
@@ -114,11 +115,37 @@ namespace ReallyTinyCms.Tests.Core
             Assert.That(item, Is.Not.Null);
         }
         
+        [Test]
+        public void ContentFor_WhenContentItemDoesntExistAndDefaultContentSupplied_ReturnsDefaultContent()
+        {
+            var item = _contentService.ContentFor(ItemName, () => DefaultValue);
+
+            Assert.That(item, Is.EqualTo(DefaultValue));
+        }
+
+        [Test]
+        public void ContentFor_WhenContentItemDoesntExistAndDefaultContentSupplied_DefaultItemIsStored()
+        {
+            _contentService.ContentFor(ItemName, () => DefaultValue);
+
+            Assert.That(_contentRepository.LastSavedItem.Name, Is.EqualTo(ItemName));
+            Assert.That(_contentRepository.LastSavedItem.Content, Is.EqualTo(DefaultValue));
+        }
+
+        [Test]
+        public void ContentFor_WhenContentItemDoesntExistAndDefaultContentSupplied_DefaultItemIsFlushedThroughCache()
+        {
+            _contentService.ContentFor(ItemName, () => DefaultValue);
+
+            Assert.That(_contentRepository.ContainsKey(ItemName));
+        }
+        
         private class CmsContentRepositoryFake: Dictionary<string, CmsContentItem>, ICmsContentRepository
         {
             protected internal bool RetrieveAllCalled { get; private set; }
             protected internal bool RetrieveCalled { get; private set; }
             protected internal bool SaveOrUpdateCalledAndNewItemCreated { get; private set; }
+            protected internal CmsContentItem LastSavedItem { get; set; }
 
             public IList<CmsContentItem> RetrieveAll()
             {
@@ -145,6 +172,8 @@ namespace ReallyTinyCms.Tests.Core
                     SaveOrUpdateCalledAndNewItemCreated = true;
                     Add(item.Name, item);
                 }
+
+                LastSavedItem = item;
             }
 
             public void Delete(string contentItemName)
