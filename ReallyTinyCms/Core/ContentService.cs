@@ -44,31 +44,37 @@ namespace ReallyTinyCms.Core
 
         public string ContentFor(string contentItemName)
         {
-            var contentItem = RetrieveOrCreate(contentItemName);
-            ContentForCallback(contentItemName, null);
-            return contentItem.Content;
+            return ContentFor(contentItemName, () => string.Empty);
         }
 
         public string ContentFor(string contentItemName, Func<string> action)
         {
+            if (string.IsNullOrWhiteSpace(contentItemName))
+            {
+                return string.Empty;
+            }
+
             var stringValue = action();
             var contentItem = RetrieveOrCreate(contentItemName, stringValue ?? string.Empty);
             ContentForCallback(contentItemName, stringValue);
             return contentItem.Content;
         }
 
+        public CmsContentItem SaveContentFor(string contentItemName, string contentValue)
+        {
+            var contentItem = new CmsContentItem(contentItemName) { Content = contentValue };
+            contentItem = ApplyOnSaveFilters(contentItem);
+
+            var repo = _repoProxy(); 
+            repo.SaveOrUpdate(contentItem);
+
+            return contentItem;
+        }
+
         private CmsContentItem RetrieveOrCreate(string contentItemName, string contentValue = "")
         {
 			var repo = _repoProxy();
-            var contentItem = repo.Retrieve(contentItemName);
-
-            if (contentItem == null)
-            {
-                contentItem = new CmsContentItem(contentItemName) { Content = contentValue };
-                contentItem = ApplyOnSaveFilters(contentItem);
-                repo.SaveOrUpdate(contentItem);
-            }
-
+            var contentItem = repo.Retrieve(contentItemName) ?? SaveContentFor(contentItemName, contentValue);
             return ApplyOnRetrieveFilters(contentItem);
         }
 

@@ -1,7 +1,9 @@
 ﻿using System;
 using NUnit.Framework;
 using ReallyTinyCms.Core;
+using ReallyTinyCms.Core.Model;
 using ReallyTinyCms.Mvc;
+using ReallyTinyCms.Tests.Fakes;
 
 namespace ReallyTinyCms.Tests.Mvc
 {
@@ -30,22 +32,6 @@ namespace ReallyTinyCms.Tests.Mvc
             var uiSugar = HtmlHelperExtensionsForReallyTinyCms.Cms(null);
 
             Assert.That(uiSugar, Is.Not.Null);
-        }
-
-        private class ContentServiceFake : IContentService
-        {
-            public ContentSourceRegistration ContentRegistration { get; set; }
-            public Action<string, string> ContentForCallback { get; set; }
-            public Action CacheRefreshCallback { get; set; }
-            public string ContentFor(string contentItemName)
-            {
-                throw new NotImplementedException();
-            }
-
-            public string ContentFor(string contentItemName, Func<string> action)
-            {
-                throw new NotImplementedException();
-            }
         }
     }
 }

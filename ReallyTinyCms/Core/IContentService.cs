@@ -1,4 +1,5 @@
 using System;
+using ReallyTinyCms.Core.Model;
 
 namespace ReallyTinyCms.Core
 {
@@ -9,5 +10,6 @@ namespace ReallyTinyCms.Core
         Action CacheRefreshCallback { set; get; }
         string ContentFor(string contentItemName);
         string ContentFor(string contentItemName, Func<string> action);
+        CmsContentItem SaveContentFor(string contentItemName, string contentValue);
     }
 }

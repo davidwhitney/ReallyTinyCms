@@ -1,5 +1,6 @@
 using System;
 using ReallyTinyCms.Core;
+using ReallyTinyCms.Core.Model;
 
 namespace ReallyTinyCms.Tests.Fakes
 {
@@ -25,6 +26,11 @@ namespace ReallyTinyCms.Tests.Fakes
             ContentForWasCalledWithDefault = true;
             LastContentForValue = contentItemName;
             return string.Empty;
+        }
+
+        public CmsContentItem SaveContentFor(string contentItemName, string contentValue)
+        {
+            throw new NotImplementedException();
         }
     }
 }

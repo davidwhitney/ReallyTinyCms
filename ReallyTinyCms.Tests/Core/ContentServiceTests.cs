@@ -138,5 +138,15 @@ namespace ReallyTinyCms.Tests.Core
 
             Assert.That(_contentRepository.ContainsKey(ItemName));
         }
+
+        [TestCase("")]
+        [TestCase(" ")]
+        [TestCase(null)]
+        public void ContentFor_ItemNameIsNullEmptyOrWhiteSpace_ReturnsStringEmpty(string itemName)
+        {
+            var content = _contentService.ContentFor(itemName);
+
+            Assert.That(content, Is.Empty);
+        }
     }
 }
