@@ -11,5 +11,6 @@ namespace ReallyTinyCms.Core
         string ContentFor(string contentItemName);
         string ContentFor(string contentItemName, Func<string> action);
         CmsContentItem SaveContentFor(string contentItemName, string contentValue);
+        CmsContentItem RetrieveOrCreate(string contentItemName, string contentValue = "");
     }
 }

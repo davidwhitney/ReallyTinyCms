@@ -75,16 +75,21 @@ namespace ReallyTinyCms.Core
             return contentItem;
         }
 
+        public CmsContentItem RetrieveOrCreate(string contentItemName, string contentValue = "")
+        {
+            if (string.IsNullOrWhiteSpace(contentItemName))
+            {
+                throw new ArgumentNullException("contentItemName");
+            }
+
+            var repo = _repoProxy();
+            var contentItem = repo.Retrieve(contentItemName) ?? SaveContentFor(contentItemName, contentValue);
+            return ApplyOnRetrieveFilters(contentItem);
+        }
+
         private string LocaliseContentItemName(string contentItemName)
         {
             return contentItemName;
-        }
-
-        private CmsContentItem RetrieveOrCreate(string contentItemName, string contentValue = "")
-        {
-			var repo = _repoProxy();
-            var contentItem = repo.Retrieve(contentItemName) ?? SaveContentFor(contentItemName, contentValue);
-            return ApplyOnRetrieveFilters(contentItem);
         }
 
         private CmsContentItem ApplyOnRetrieveFilters(CmsContentItem contentItem)

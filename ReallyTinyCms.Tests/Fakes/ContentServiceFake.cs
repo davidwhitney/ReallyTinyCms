@@ -32,5 +32,10 @@ namespace ReallyTinyCms.Tests.Fakes
         {
             throw new NotImplementedException();
         }
+
+        public CmsContentItem RetrieveOrCreate(string contentItemName, string contentValue = "")
+        {
+            throw new NotImplementedException();
+        }
     }
 }
