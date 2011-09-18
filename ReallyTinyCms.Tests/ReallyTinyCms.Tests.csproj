@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigurationBuilderTests.cs" />
+    <Compile Include="Fakes\ContentServiceFake.cs" />
+    <Compile Include="Core\ReallyTinyCmsUiSugarTests.cs" />
     <Compile Include="Fakes\CmsContentRepositoryFake.cs" />
     <Compile Include="Core\ContentServiceTests.cs" />
     <Compile Include="Core\ContentSourceRegistrationTests.cs" />

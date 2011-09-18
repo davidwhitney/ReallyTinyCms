@@ -7,8 +7,13 @@ namespace ReallyTinyCms.Core
     {
         private readonly IContentService _contentService;
 
-        internal ReallyTinyCmsUiSugar(IContentService contentService)
+        public ReallyTinyCmsUiSugar(IContentService contentService)
         {
+            if (contentService == null)
+            {
+                throw new ArgumentNullException("contentService", "UI Sugar is useless without a contentService");
+            }
+
             _contentService = contentService;
         }
 
