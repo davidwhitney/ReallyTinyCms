@@ -157,5 +157,16 @@ namespace ReallyTinyCms.Tests.Core
 
             Assert.That(content, Is.EqualTo(defaultThing));
         }
+
+
+        [TestCase("")]
+        [TestCase(" ")]
+        [TestCase(null)]
+        public void SaveContentFor_ItemNameIsNullEmptyOrWhiteSpace_ThrowsArgumentNullException(string itemName)
+        {
+            var ex = Assert.Throws<ArgumentNullException>(() => _contentService.SaveContentFor(itemName, "content"));
+
+            Assert.That(ex.ParamName, Is.StringMatching("contentItemName"));
+        }
     }
 }

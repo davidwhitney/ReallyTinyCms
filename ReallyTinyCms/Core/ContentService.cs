@@ -54,21 +54,30 @@ namespace ReallyTinyCms.Core
                 return action != null ? action() : string.Empty;
             }
 
+            var localisedContentItemName = LocaliseContentItemName(contentItemName);
+
             var stringValue = action();
-            var contentItem = RetrieveOrCreate(contentItemName, stringValue ?? string.Empty);
+            var contentItem = RetrieveOrCreate(localisedContentItemName, stringValue ?? string.Empty);
             ContentForCallback(contentItemName, stringValue);
             return contentItem.Content;
         }
 
         public CmsContentItem SaveContentFor(string contentItemName, string contentValue)
         {
-            var contentItem = new CmsContentItem(contentItemName) { Content = contentValue };
+            var localisedContentItemName = LocaliseContentItemName(contentItemName);
+
+            var contentItem = new CmsContentItem(localisedContentItemName) { Content = contentValue };
             contentItem = ApplyOnSaveFilters(contentItem);
 
-            var repo = _repoProxy(); 
+            var repo = _repoProxy();
             repo.SaveOrUpdate(contentItem);
 
             return contentItem;
+        }
+
+        private string LocaliseContentItemName(string contentItemName)
+        {
+            return contentItemName;
         }
 
         private CmsContentItem RetrieveOrCreate(string contentItemName, string contentValue = "")
