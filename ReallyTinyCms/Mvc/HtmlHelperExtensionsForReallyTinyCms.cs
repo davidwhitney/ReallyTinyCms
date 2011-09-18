@@ -6,7 +6,7 @@ namespace ReallyTinyCms.Mvc
 {
     public static class HtmlHelperExtensionsForReallyTinyCms
     {
-        internal static ContentService ContentService { get; set; }
+        public static IContentService ContentService { get; set; }
 
         public static ReallyTinyCmsUiSugar Cms(this HtmlHelper helper)
         {

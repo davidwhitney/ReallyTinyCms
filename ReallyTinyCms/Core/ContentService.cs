@@ -6,7 +6,7 @@ using ReallyTinyCms.Core.Storage;
 
 namespace ReallyTinyCms.Core
 {
-    public class ContentService
+    public class ContentService : IContentService
     {
     	public ContentSourceRegistration ContentRegistration { get; set; }
     	public Action<string, string> ContentForCallback { get; set; }

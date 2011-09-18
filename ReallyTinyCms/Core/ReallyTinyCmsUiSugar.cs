@@ -5,9 +5,9 @@ namespace ReallyTinyCms.Core
 {
     public class ReallyTinyCmsUiSugar
     {
-        private readonly ContentService _contentService;
+        private readonly IContentService _contentService;
 
-        internal ReallyTinyCmsUiSugar(ContentService contentService)
+        internal ReallyTinyCmsUiSugar(IContentService contentService)
         {
             _contentService = contentService;
         }
