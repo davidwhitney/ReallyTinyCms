@@ -21,6 +21,11 @@ namespace ReallyTinyCms.Core
 
         public ContentService(ContentSourceRegistration contentRegistration)
         {
+            if (contentRegistration == null)
+            {
+                throw new ArgumentNullException("contentRegistration", "ContentService requires a valid ContentRegistration to function.");
+            }
+
             ContentRegistration = contentRegistration;
 			BuildContentCache(contentRegistration.FunctionToRetrieveCurrentRepository);
             CacheRefreshCallback = () => { };

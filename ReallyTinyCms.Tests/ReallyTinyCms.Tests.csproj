@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigurationBuilderTests.cs" />
+    <Compile Include="Core\ContentServiceTests.cs" />
     <Compile Include="ExtensionsToHelpDuringConfigurationTests.cs" />
     <Compile Include="Mvc\HtmlHelperExtensionsForReallyTinyCmsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
