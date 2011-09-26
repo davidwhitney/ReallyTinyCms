@@ -37,7 +37,9 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,11 +49,15 @@
   <ItemGroup>
     <Compile Include="ConfigurationBuilderTests.cs" />
     <Compile Include="Fakes\ContentServiceFake.cs" />
-    <Compile Include="Core\ReallyTinyCmsUiSugarTests.cs" />
     <Compile Include="Fakes\CmsContentRepositoryFake.cs" />
     <Compile Include="Core\ContentServiceTests.cs" />
     <Compile Include="Core\ContentSourceRegistrationTests.cs" />
     <Compile Include="ExtensionsToHelpDuringConfigurationTests.cs" />
+    <Compile Include="Fakes\ControllerFake.cs" />
+    <Compile Include="Fakes\HttpRequestFake.cs" />
+    <Compile Include="Fakes\ViewFake.cs" />
+    <Compile Include="Fakes\ViewEngineFake.cs" />
+    <Compile Include="Fakes\HttpContextFake.cs" />
     <Compile Include="Mvc\HtmlHelperExtensionsForReallyTinyCmsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReallyTinyCmsTests.cs" />

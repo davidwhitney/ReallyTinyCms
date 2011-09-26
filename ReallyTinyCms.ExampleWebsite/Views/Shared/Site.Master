@@ -1,4 +1,5 @@
 ﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+<%@ Import Namespace="ReallyTinyCms.Mvc" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -12,14 +13,20 @@
 
         <div id="header">
             <div id="title">
-                <h1>My MVC Application</h1>
+                <h1><%:Html.ContentFor("Master-Heading1", () => "TinyCms")%></h1>
             </div>
                           
             <div id="menucontainer">
-            
-                <ul id="menu">              
-                    <li><%: Html.ActionLink("Home", "Index", "Home")%></li>
-                    <li><%: Html.ActionLink("About", "About", "Home")%></li>
+                <ul id="menu"> <%--Todo editor template would work better here --%>  
+                    <%if (Html.EditEnabledForCurrentRequest()) {%>
+                        <li><%:Html.ContentFor("Master-Menu1", () => "Server Example")%></li>
+                        <li><%:Html.ContentFor("Master-Menu2", () => "About")%></li>
+                    <%}%>
+                    <%else {%>
+                        <li class="cms-link"><a href="<%:(Request.QueryString.Count == 0 ? "?" : "&") + "editmode=true&returnUrl=" + Url.Encode(Request.Url.OriginalString)%>">Edit</a></li>
+                        <li><a href="<%:Url.Action("Index", "Home")%>"><%:Html.ContentFor("Master-Menu1", () => "Server Example")%></a></li>
+                        <li><a href="<%:Url.Action("About", "Home")%>"><%:Html.ContentFor("Master-Menu2", () => "About")%></a></li>           
+                    <%}%>
                 </ul>
             
             </div>

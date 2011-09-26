@@ -22,7 +22,7 @@ namespace ReallyTinyCms.Tests.Fakes
 
             ContentForWasCalled = true;
             LastContentForValue = contentItemName;
-            return string.Empty;
+            return action();
         }
 
         public CmsContentItem SaveContentFor(string contentItemName, string contentValue)

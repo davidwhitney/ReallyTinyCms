@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using System.Web.Routing;
 using ReallyTinyCms.Core;
 
@@ -7,17 +8,14 @@ namespace ReallyTinyCms.Mvc.Controllers
     public class ReallyTinyCmsController : Controller
     {
         private readonly IContentService _contentService;
-        private readonly ReallyTinyCmsUiSugar _uiSugar;
-
-        public ReallyTinyCmsController()
-            : this(ReallyTinyCms.ContentService)
+        
+        public ReallyTinyCmsController() : this(ReallyTinyCms.ContentService)
         {
         }
 
         public ReallyTinyCmsController(IContentService contentService)
         {
             _contentService = contentService;
-            _uiSugar = new ReallyTinyCmsUiSugar(_contentService);
         }
 
         public ActionResult Index(bool failedAuth = false, bool invalidName = false)
@@ -28,7 +26,7 @@ namespace ReallyTinyCms.Mvc.Controllers
         [HttpGet]
         public ActionResult Edit(string name)
         {
-            if (!_uiSugar.EditEnabledForCurrentRequest())
+            if (!HtmlHelperExtensionsForReallyTinyCms.EditEnabledForCurrentRequest(Request.RequestContext))
             {
                 return RedirectToAction("Index", new {failedAuth = true});
             }
@@ -46,26 +44,25 @@ namespace ReallyTinyCms.Mvc.Controllers
         [HttpPost]
         public ActionResult Edit(string name, string content)
         {
-            if (!_uiSugar.EditEnabledForCurrentRequest())
+            if (!HtmlHelperExtensionsForReallyTinyCms.EditEnabledForCurrentRequest(Request.RequestContext))
             {
                 return RedirectToAction("Index", new {failedAuth = true});
             }
 
-            if (string.IsNullOrWhiteSpace(name))
+            if (Request.Form.AllKeys.Where(v => v.StartsWith(HtmlHelperExtensionsForReallyTinyCms.EditContentHtmlFieldNamePrefix)).Count() == 0)
             {
-                return RedirectToAction("Index", new {invalidName = true});
+                return RedirectToAction("Index", new { invalidName = true });
             }
 
-            _contentService.SaveContentFor(name, content);
+            Request.Form.AllKeys //TODO create model binder =>  CmsContentItem
+                .Where(v => v.StartsWith(HtmlHelperExtensionsForReallyTinyCms.EditContentHtmlFieldNamePrefix))
+                .ToList()
+                .ForEach(key => _contentService.SaveContentFor(key.Replace(HtmlHelperExtensionsForReallyTinyCms.EditContentHtmlFieldNamePrefix, string.Empty), Request.Form[key]));
+            
+            if (Request.QueryString[HtmlHelperExtensionsForReallyTinyCms.ReturnUrlKey] != null)
+                return Redirect(Request.QueryString[HtmlHelperExtensionsForReallyTinyCms.ReturnUrlKey]);
 
-            var routeValues = new RouteValueDictionary {{"name", name}};
-            foreach (var key in Request.QueryString.AllKeys)
-            {
-                var value = Request.QueryString[key];
-                routeValues.Add(key, value);
-            }
-
-            return RedirectToAction("Edit", routeValues);
+            return Content("Content successfully saved");
         }
     }
 }

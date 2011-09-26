@@ -153,6 +153,34 @@ ul#menu li#greeting
     color: #fff;
 }
 
+ul#menu li.cms-link a
+{
+    background-color: darkorange;
+     color: white;
+    
+}
+
+ul#menu li.cms-link a:hover
+{
+   background-color: #e8eef4;
+    color: #034af3; 
+}
+
+ul#menu li.cms-link {
+    margin-right: 50px;
+}
+
+ul#menu li form
+{
+     padding: 10px 20px;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 2.8em;
+    background-color: #e8eef4;
+    color: #034af3;
+    display: inline;
+}
+
 ul#menu li a
 {
     padding: 10px 20px;
@@ -258,7 +286,6 @@ table th
 div#title
 {
     display:block;
-    float:left;
     text-align:left;
 }
 
@@ -341,4 +368,13 @@ div#title
 .tri-state
 {
     width: 6em;
+}
+form {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    font-size: 100%;
+    margin: 0;
+    outline: 0 none;
+    padding: 0;
+    vertical-align: baseline;
 }

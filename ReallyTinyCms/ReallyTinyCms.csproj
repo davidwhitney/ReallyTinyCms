@@ -54,7 +54,6 @@
     <Compile Include="Core\ContentService.cs" />
     <Compile Include="Core\ContentSourceRegistration.cs" />
     <Compile Include="Core\Storage\SqlCmsContentRepository.cs" />
-    <Compile Include="Core\ReallyTinyCmsUiSugar.cs" />
     <Compile Include="Core\Storage\Dapper\SqlMapper.cs" />
     <Compile Include="ExtensionsToHelpDuringConfiguration.cs" />
     <Compile Include="Mvc\Controllers\ReallyTinyCmsController.cs" />
@@ -70,12 +69,9 @@
     <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\ReallyTinyCms\Edit.aspx">
-      <SubType>ASPXCodeBehind</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Views\ReallyTinyCms\Index.aspx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>ASPXCodeBehind</SubType>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

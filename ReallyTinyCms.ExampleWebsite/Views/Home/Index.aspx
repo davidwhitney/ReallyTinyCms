@@ -6,19 +6,16 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2><%: ViewData["Message"] %></h2>
+    <h2><%:Html.ContentFor("Index-Heading1", () => "Welcome to ASP.NET MVC!")%></h2>
     <p>
-        To learn more about ASP.NET MVC visit <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
+        <%:Html.ContentFor("Index-Paragraph1", () => "This is a server side example of TinyCms. Click on the Edit button to edit the content of this page.")%>
     </p>
 
-    <p>
-        <%= Html.Cms().ContentFor("HomePageTop") %>
-        <%= Html.Cms().ContentFor("HomePageTop2", ()=>@"<b>This is default bold text</b>") %>
-    </p>
+    <%:Html.ContentFor("Index-TemplateExample1", () => "Here is an example using a template")%>
 
     <p>
-    <%if(Html.Cms().EditEnabledForCurrentRequest()){%>
-        Whoop editing enabled for this request.
-    <% } %>    
+        <%if(Html.EditEnabledForCurrentRequest()){%>
+            Whoop editing enabled for this request.
+        <% } %>    
     </p>
 </asp:Content>
