@@ -53,6 +53,7 @@
     <Compile Include="Core\Model\CmsContentItem.cs" />
     <Compile Include="Core\ContentService.cs" />
     <Compile Include="Core\ContentSourceRegistration.cs" />
+    <Compile Include="Core\Storage\ReadOnlyHttpContentRepository.cs" />
     <Compile Include="Core\Storage\SqlCmsContentRepository.cs" />
     <Compile Include="Core\Storage\Dapper\SqlMapper.cs" />
     <Compile Include="ExtensionsToHelpDuringConfiguration.cs" />
