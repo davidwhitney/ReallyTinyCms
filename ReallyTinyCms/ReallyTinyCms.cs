@@ -10,7 +10,7 @@ namespace ReallyTinyCms
     /// </summary>
     public static class ReallyTinyCms
     {
-        public static ContentService ContentService { get; private set; }
+        public static IContentService ContentService { get; private set; }
 
         public static ConfigurationBuilder ConfigureWithContentSource(Func<ICmsContentRepository> contentRepository, int? refreshInterval = null)
         {

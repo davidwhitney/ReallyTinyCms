@@ -8,9 +8,9 @@ namespace ReallyTinyCms
 {
     public class ConfigurationBuilder
     {
-        public ContentService ContentService { get; private set; }
+        public IContentService ContentService { get; private set; }
 
-        public ConfigurationBuilder(ContentService contentService)
+        public ConfigurationBuilder(IContentService contentService)
         {
             if (contentService == null)
             {

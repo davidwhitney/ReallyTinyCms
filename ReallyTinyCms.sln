@@ -1,11 +1,18 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReallyTinyCms", "ReallyTinyCms\ReallyTinyCms.csproj", "{C2ED3D4D-99B9-4B54-832E-39AF830C78EB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReallyTinyCms.Tests", "ReallyTinyCms.Tests\ReallyTinyCms.Tests.csproj", "{6B7B81EB-2D18-4FD7-A784-6E2E1A2B66A9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReallyTinyCms.ExampleWebsite", "ReallyTinyCms.ExampleWebsite\ReallyTinyCms.ExampleWebsite.csproj", "{5C8E5004-67B3-45DB-9478-D5FD05E7CEC4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{92780A36-C491-42F1-A161-4DFD66257A92}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
