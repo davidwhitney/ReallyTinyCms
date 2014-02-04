@@ -26,14 +26,18 @@ namespace ReallyTinyCms.Mvc
             {
                 action = () => string.Empty;
             }
+            var contentItem = ContentService.ContentFor(contentItemName, action);
 
-            var currentModel = helper.ViewData.Model; //Support implementing in existing applications
-            helper.ViewData.Model = ContentService.ContentFor(contentItemName, action);
+            if (EditEnabledForCurrentRequest(helper))
+            {
+                var currentModel = helper.ViewData.Model; //Support implementing in existing applications
+                helper.ViewData.Model = contentItem;
+                var content = EditorContentTemplate(helper, contentItemName);
+                helper.ViewData.Model = currentModel;
+                return content;
+            }
 
-            var content = EditEnabledForCurrentRequest(helper) ? EditorContentTemplate(helper, contentItemName) : helper.DisplayForModel(contentItemName, DisplayContentHtmlFieldNamePrefix + contentItemName); ;
-            helper.ViewData.Model = currentModel;
-
-            return content;
+            return MvcHtmlString.Create(contentItem);
         }
 
         private static MvcHtmlString EditorContentTemplate(HtmlHelper helper, string contentItemName)
